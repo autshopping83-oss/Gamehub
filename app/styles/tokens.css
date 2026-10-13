@@ -1,6 +1,6 @@
 /* ==========================================================================
    Gamehub — design tokens
-   Every value below traces to a scale. No ad-hoc values in component CSS.
+   Press Kit Editorial. Every value traces to a scale; no ad-hoc values.
    ========================================================================== */
 
 :root {
@@ -9,21 +9,23 @@
   --surface: #ffffff;
   --surface-2: #eef1f5;
 
-  /* --- Ink ramp (text) ------------------------------------------------- */
+  /* --- Ink ramp --------------------------------------------------------- */
   --ink: #171a1f;
   --ink-2: #4a5262;
   --ink-3: #5a6270;
 
-  /* --- Accent / interaction ------------------------------------------- */
+  /* --- Accent / interaction -------------------------------------------- */
   --accent: #1d4ed8;
+  --accent-hover: #1743bd;
+  --accent-active: #143aa6;
   --focus: #1d4ed8;
   --status: #f59e0b;
 
-  /* --- Lines ----------------------------------------------------------- */
+  /* --- Lines ------------------------------------------------------------ */
   --line: rgb(23 26 31 / 0.08);
   --line-strong: #858d9b;
 
-  /* --- Space scale (perfect fourth-derived) ---------------------------- */
+  /* --- Space scale ------------------------------------------------------ */
   --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;
   --space-xs: 0.75rem;
@@ -33,7 +35,7 @@
   --space-xl: 3rem;
   --space-2xl: 4.5rem;
   --space-3xl: 7rem;
-  --space-section: clamp(3rem, 2rem + 5vw, 7rem);
+  --space-section: clamp(2.5rem, 1.75rem + 4vw, 6rem);
 
   /* --- Type scale (1.333) ---------------------------------------------- */
   --step--1: 0.75rem;
@@ -44,37 +46,36 @@
   --step-4: 3.157rem;
   --step-5: 4.209rem;
   --step-6: 5.61rem;
-  --step-hero: clamp(2.6rem, 1.35rem + 5.4vw, 5.4rem);
+  --step-hero: clamp(3rem, 1.4rem + 6.6vw, 7.5rem);
 
-  --leading-tight: 1.05;
-  --leading-snug: 1.25;
-  --leading-normal: 1.55;
+  --leading-tight: 1.02;
+  --leading-snug: 1.22;
+  --leading-normal: 1.6;
   --leading-copy: 1.7;
 
-  --tracking-tight: -0.02em;
-  --tracking-wide: 0.14em;
+  --tracking-tight: -0.03em;
+  --tracking-micro: 0.16em;
 
   --weight-normal: 400;
-  --weight-medium: 500;
   --weight-semibold: 600;
 
-  /* --- Layout ---------------------------------------------------------- */
-  --container: 72.5rem;
-  --container-wide: 84rem;
-  --measure: 68ch;
-  --gutter: clamp(1.25rem, 0.5rem + 2.6vw, 3.5rem);
+  /* --- Layout ----------------------------------------------------------- */
+  --container: 76rem;
+  --measure: 62ch;
+  --gutter: clamp(1.25rem, 0.4rem + 3vw, 3.5rem);
 
-  /* --- Radius (single value) ------------------------------------------- */
-  --radius: 8px;
-
-  /* --- Shadows (two only) ---------------------------------------------- */
+  /* --- Form ------------------------------------------------------------- */
+  /* rem so the radius follows the user's font-size setting, like everything
+     else in the scale. Shadows stay in px — they are light, not type. */
+  --radius: 0.5rem;
+  --rule-strong: 2px;
   --shadow-1: 0 1px 2px rgb(23 26 31 / 0.06), 0 1px 1px rgb(23 26 31 / 0.04);
-  --shadow-2: 0 2px 4px rgb(23 26 31 / 0.05), 0 12px 32px rgb(23 26 31 / 0.08);
+  --shadow-2: 0 2px 4px rgb(23 26 31 / 0.05), 0 14px 40px rgb(23 26 31 / 0.1);
 
   /* --- Motion ----------------------------------------------------------- */
   --dur-fast: 120ms;
   --dur: 240ms;
-  --dur-slow: 520ms;
+  --dur-slow: 640ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
 
@@ -83,8 +84,4 @@
   --z-raised: 10;
   --z-sticky: 100;
   --z-overlay: 1000;
-
-  /* --- Media plate (the artwork slot; placeholder game identity) ------- */
-  --game-warm: #b4471f;
-  --game-warm-ink: #ffffff;
 }

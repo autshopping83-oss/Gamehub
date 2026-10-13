@@ -1,38 +1,24 @@
 import HeroGame from "@/components/hero-game";
-import SectionHeading from "@/components/section-heading";
+import FeatureSpread from "@/components/feature-spread";
+import GameCatalog from "@/components/game-catalog";
+import PublisherBand from "@/components/publisher-band";
+import DiscoverCta from "@/components/discover-cta";
+import { catalogGames, featuredGame } from "@/lib/games";
 
 export default function HomePage() {
+  const featured = featuredGame();
+  const rest = catalogGames(featured.slug);
+
   return (
     <>
       <HeroGame />
-
-      <section className="section statement" aria-labelledby="publisher-title">
-        <div className="container">
-          <SectionHeading
-            overline="Publisher"
-            title="A quiet frame"
-            id="publisher-title"
-          />
-
-          <div className="statement__grid">
-            <p className="statement__text">
-              We publish few games, and we show them properly.
-            </p>
-
-            <div className="statement__body">
-              <p>
-                Gamehub is an independent game publisher. This site is built the
-                way a catalogue is built: one plate at a time, with room to look.
-              </p>
-              <p>
-                Nothing on this page is pretending to be finished. The featured
-                entry above is an in-development title, and its media is an
-                honest placeholder until verified gameplay exists.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* The spread is the featured title's editorial record — the hero
+          already hooks it. The catalogue takes everything else, so no title
+          is ever listed twice. */}
+      <FeatureSpread games={[featured]} />
+      <GameCatalog games={rest} />
+      <PublisherBand />
+      <DiscoverCta />
     </>
   );
 }

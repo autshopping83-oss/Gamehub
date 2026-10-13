@@ -16,8 +16,8 @@ export default function GamesPage() {
         <div className="container">
           <h1 className="page-head__title">Games</h1>
           <p className="page-head__lede">
-            The catalogue grows one verified entry at a time. Placeholder plates
-            are labelled as such.
+            The catalogue grows one verified entry at a time. Nothing is listed
+            until it can be shown properly.
           </p>
         </div>
       </header>

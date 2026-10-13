@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import GameMetadata from "@/components/game-metadata";
+import GameMedia from "@/components/game-media";
 import PlatformButton from "@/components/platform-button";
 import { ArrowIcon } from "@/components/icons";
-import { games, getGame } from "@/lib/games";
+import { featuredGame, games, getGame, STATUS_LABEL } from "@/lib/games";
 import { gameJsonLd, pageMetadata } from "@/lib/seo";
 
 /**
- * Minimal detail stub — enough for the hero CTA and catalogue links to land
- * somewhere honest. The full detail page (screenshots, trailer, long-form
- * copy) is deliberately out of scope for this phase.
+ * Minimal detail route — enough for the hero CTA and catalogue links to land
+ * somewhere honest. The full detail page (screenshots, trailer, long-form)
+ * remains out of scope for this phase.
  */
 
 interface PageProps {
@@ -37,73 +37,106 @@ export default async function GameDetailPage({ params }: PageProps) {
   const game = getGame(slug);
   if (!game) notFound();
 
+  const related = games.filter((item) => item.slug !== game.slug);
+  const sibling = related[0] ?? featuredGame();
+
   return (
     <>
-      <header className="page-head">
-        <div className="container">
-          <p className="section-heading__overline" style={{ marginBottom: "var(--space-2xs)" }}>
-            Catalogue entry
+      <header className="entry-head">
+        <div className="entry-head__inner">
+          <p className="entry-head__crumbs">
+            <Link className="link-arrow" href="/games">
+              <ArrowIcon style={{ transform: "rotate(180deg)" }} />
+              Catalogue
+            </Link>
           </p>
-          <h1 className="page-head__title">{game.title}</h1>
-          <p className="page-head__lede">{game.tagline}</p>
+
+          <p className="entry-head__labels">
+            <span>{STATUS_LABEL[game.status]}</span>
+            <span aria-hidden="true">·</span>
+            <span>{game.category}</span>
+            {game.platforms.length > 0 ? (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>{game.platforms.join(" · ")}</span>
+              </>
+            ) : null}
+          </p>
+
+          <h1 className="entry-head__title">{game.title}</h1>
+          <p className="entry-head__sub">{game.tagline}</p>
         </div>
       </header>
 
-      <section className="section">
-        <div className="container" style={{ display: "grid", gap: "var(--space-xl)" }}>
-          <div
-            className="media-frame"
-            style={{
-              background: game.palette.background,
-              color: game.palette.foreground,
-              maxWidth: "56rem",
-            }}
-          >
-            {game.mediaIsPlaceholder ? (
-              <span className="media-frame__placeholder-tag">Placeholder plate</span>
-            ) : null}
-            <span className="plate-mark" aria-hidden="true">
-              {game.title}
-            </span>
+      <div className="entry-stage">
+        <GameMedia game={game} ratio="16 / 9" />
+      </div>
+
+      <section className="section entry-body" aria-labelledby="entry-about">
+        <div className="container entry-body__grid">
+          <div>
+            <h2 className="entry-body__heading" id="entry-about">
+              About
+            </h2>
+            <p className="entry-body__copy">{game.description}</p>
           </div>
 
-          <div style={{ display: "grid", gap: "var(--space-m)", maxWidth: "40rem" }}>
-            <aside className="wall-label" style={{ position: "static" }}>
-              <span className="wall-label__index">Entry</span>
-              <span className="wall-label__title">{game.title}</span>
-              <GameMetadata game={game} />
-            </aside>
-
-            <p style={{ color: "var(--ink-2)", maxWidth: "var(--measure)" }}>
-              {game.description}
-            </p>
-
-            <div>
-              <h2 className="site-footer__heading" style={{ marginBottom: "var(--space-2xs)" }}>
-                Where to play
-              </h2>
-              <div className="platform-row">
-                {game.storeLinks.length > 0 ? (
-                  game.storeLinks.map((link) => (
+          <div className="entry-body__aside">
+            {game.storeLinks.length > 0 ? (
+              <div className="entry-body__block">
+                <h3 className="hero__availability-label">Available on</h3>
+                <div className="platform-row">
+                  {game.storeLinks.map((link) => (
                     <PlatformButton key={link.platform} link={link} />
-                  ))
-                ) : (
-                  <span className="platform-btn" role="status" aria-disabled="true">
-                    No storefront live yet
-                  </span>
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : null}
 
-            <div style={{ paddingTop: "var(--space-s)" }}>
-              <Link className="btn btn--ghost" href="/games">
-                <ArrowIcon style={{ transform: "rotate(180deg)" }} />
-                Back to games
-              </Link>
+            <div className="entry-body__block">
+              <h3 className="hero__availability-label">Details</h3>
+              <dl className="spec-list">
+                <div className="spec-list__row">
+                  <dt>Status</dt>
+                  <dd>{STATUS_LABEL[game.status]}</dd>
+                </div>
+                <div className="spec-list__row">
+                  <dt>Category</dt>
+                  <dd>{game.category}</dd>
+                </div>
+                <div className="spec-list__row">
+                  <dt>Platforms</dt>
+                  <dd>{game.platforms.join(", ") || "—"}</dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
       </section>
+
+      {related.length > 0 ? (
+        <section className="section entry-related" aria-labelledby="entry-related">
+          <div className="container">
+            <div className="section-heading">
+              <div>
+                <span className="section-heading__overline">Next</span>
+                <h2 className="section-heading__title" id="entry-related">
+                  Keep looking
+                </h2>
+              </div>
+            </div>
+            <Link className="entry-related__link" href={`/games/${sibling.slug}`}>
+              <GameMedia game={sibling} variant="tile" ratio="16 / 9" />
+              <span className="entry-related__meta">
+                <span className="catalog-card__title">{sibling.title}</span>
+                <span className="catalog-card__labels">
+                  {STATUS_LABEL[sibling.status]} · {sibling.category}
+                </span>
+              </span>
+            </Link>
+          </div>
+        </section>
+      ) : null}
 
       <script
         type="application/ld+json"

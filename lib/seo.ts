@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getGame, STATUS_LABEL, type Game } from "@/lib/games";
+import { resolveAsset } from "@/lib/assets";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(
   /\/+$/,
@@ -79,9 +80,13 @@ export const gameJsonLd = (game: Game) => ({
   genre: game.category,
   gamePlatform: game.platforms.join(", "),
   ...(game.releaseYear ? { datePublished: String(game.releaseYear) } : {}),
-  ...(game.icon ? { image: game.icon } : {}),
-  ...(game.screenshots.length > 0
-    ? { screenshot: game.screenshots.map((shot) => (/^https?:/.test(shot) ? shot : siteUrlWith(shot))) }
+  ...(game.assets.cover ? { image: resolveAsset(game.assets.cover) } : {}),
+  ...(game.assets.screenshots && game.assets.screenshots.length > 0
+    ? {
+        screenshot: game.assets.screenshots
+          .map(resolveAsset)
+          .filter(Boolean) as string[],
+      }
     : {}),
 });
 

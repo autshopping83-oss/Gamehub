@@ -8,7 +8,7 @@ import "@/app/styles/site.css";
 
 const sans = Instrument_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "600"],
   variable: "--font-sans",
   display: "swap",
 });
@@ -29,9 +29,25 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  // suppressHydrationWarning: the inline script below adds `js` to <html>
+  // before React hydrates, so the client className intentionally differs.
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable}`}>
+    <html
+      lang="en"
+      className={`${sans.variable} ${serif.variable}`}
+      suppressHydrationWarning
+    >
       <body>
+        {/*
+          Marks the document as script-capable before first paint. Scroll
+          reveals only hide content under `.js`, so this has to run ahead of
+          the body — if it never runs, every section stays visible.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add("js")`,
+          }}
+        />
         <a className="skip-link" href="#main">
           Skip to content
         </a>

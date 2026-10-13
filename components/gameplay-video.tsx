@@ -1,52 +1,47 @@
 "use client";
 
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type SyntheticEvent,
-} from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PauseIcon, PlayIcon } from "@/components/icons";
 
 interface GameplayVideoProps {
-  /** Empty string disables the video entirely — the poster/plate remains. */
-  src: string;
+  /** Public URL to the gameplay loop. Empty/absent renders nothing. */
+  src?: string;
+  /** Painted first; becomes the permanent surface under reduced motion or failure. */
   poster?: string;
-  /** Decorative-only: this media is decorative to the surrounding copy. */
   className?: string;
-  style?: React.CSSProperties;
 }
 
 /**
- * Autoplaying, muted, looping gameplay clip.
+ * Gameplay as a living environment — not a video player.
  *
- * House rules honoured here:
- *  - muted + playsInline + loop + preload="none" + no native controls
- *  - aria-hidden and tabIndex={-1}: it is decorative and unfocusable
- *  - src is attached lazily, only once the frame is in view and only when the
- *    visitor has not asked for reduced motion
- *  - playback pauses when out of view and when the tab is hidden
- *  - WCAG 2.2.2 (pause/stop/hide): a small toggle is rendered whenever a real
- *    video source exists — the documented accessibility exception to
- *    "no play button over autoplay"
+ * There is NO visible player UI: no play button, no timeline, no controls.
+ * The clip is muted, inline, looping and begins the moment the section is
+ * sufficiently visible, so the game appears to be happening inside the page.
+ *
+ * Contract:
+ *  - poster paints first; the <video> is not created until the frame is in view,
+ *    so nothing below the fold is downloaded on initial page load
+ *  - only one clip plays at a time: it pauses the moment it leaves the viewport
+ *    and when the tab is hidden
+ *  - prefers-reduced-motion: the video is never attached; the poster is final
+ *  - a failed load silently keeps the poster — no broken-media icon, no throw
+ *  - WCAG 2.2.2 still needs a way to stop the motion, so an off-screen but
+ *    keyboard-reachable control is provided. It is invisible until focused,
+ *    which keeps the "no player UI" rule intact for sighted visitors.
  */
-export default function GameplayVideo({
-  src,
-  poster,
-  className,
-  style,
-}: GameplayVideoProps) {
+export default function GameplayVideo({ src, poster, className }: GameplayVideoProps) {
   const frameRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const labelId = useId();
+  /** An explicit pause from the visitor is respected across scroll. */
+  const userPausedRef = useRef(false);
+  const helpId = useId();
 
-  const [attached, setAttached] = useState(false);
+  const [inView, setInView] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
+  const [failed, setFailed] = useState(false);
 
-  const hasSource = src.trim().length > 0;
+  const hasSource = Boolean(src && src.trim()) && !failed;
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -56,13 +51,8 @@ export default function GameplayVideo({
     return () => query.removeEventListener("change", onChange);
   }, []);
 
-  const pause = useCallback(() => {
-    videoRef.current?.pause();
-  }, []);
-
   useEffect(() => {
     if (!hasSource || reduceMotion) return;
-
     const frame = frameRef.current;
     if (!frame) return;
 
@@ -70,52 +60,61 @@ export default function GameplayVideo({
       (entries) => {
         const entry = entries[0];
         if (!entry) return;
-
         if (entry.isIntersecting) {
-          setAttached(true);
+          setInView(true);
+          // Re-entry: the element is already mounted, so resume here. The
+          // first entry has no element yet — that case is handled by the
+          // effect below once the video is attached.
+          if (!userPausedRef.current) void videoRef.current?.play().catch(() => {});
         } else {
-          pause();
+          videoRef.current?.pause();
         }
       },
-      { threshold: 0.3 },
+      { threshold: 0.25 },
     );
 
     observer.observe(frame);
     return () => observer.disconnect();
-  }, [hasSource, reduceMotion, pause]);
+  }, [hasSource, reduceMotion]);
+
+  // Fires once the video is actually attached, covering the first entry
+  // (where autoPlay is only a hint and can be refused) and any later mount.
+  useEffect(() => {
+    if (!inView || userPausedRef.current) return;
+    void videoRef.current?.play().catch(() => {});
+  }, [inView]);
 
   useEffect(() => {
     if (!hasSource) return;
     const onVisibility = () => {
-      if (document.visibilityState !== "visible") pause();
+      if (document.visibilityState !== "visible") videoRef.current?.pause();
     };
     document.addEventListener("visibilitychange", onVisibility);
     return () => document.removeEventListener("visibilitychange", onVisibility);
-  }, [hasSource, pause]);
+  }, [hasSource]);
 
-  /**
-   * Label is derived from the element's real playback state, never from an
-   * internal flag — otherwise the control lies during autoplay start-up.
-   */
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      void video.play().catch(() => {
-        /* autoplay refused — the poster remains, no error noise */
-      });
+      userPausedRef.current = false;
+      void video.play().catch(() => setFailed(true));
     } else {
+      userPausedRef.current = true;
       video.pause();
     }
-  };
+  }, []);
+
+  // Reduced motion, or no clip supplied: the poster is the finished state.
+  if (!hasSource || reduceMotion) return null;
 
   return (
-    <div ref={frameRef} className={className} style={style}>
-      {hasSource ? (
+    <div ref={frameRef} className={className}>
+      {inView ? (
         <video
           ref={videoRef}
-          className="media-frame__video"
-          src={attached ? src : undefined}
+          className="game-media__video"
+          src={src}
           poster={poster}
           muted
           playsInline
@@ -128,23 +127,23 @@ export default function GameplayVideo({
           onPlay={() => setPlaying(true)}
           onPlaying={() => setPlaying(true)}
           onPause={() => setPlaying(false)}
+          onError={() => setFailed(true)}
         />
       ) : null}
 
-      {hasSource && !reduceMotion ? (
-        <button
-          type="button"
-          className="video-toggle"
-          aria-label={playing ? "Pause background video" : "Play background video"}
-          aria-describedby={labelId}
-          onClick={handleToggle}
-        >
-          {playing ? <PauseIcon /> : <PlayIcon />}
-        </button>
-      ) : null}
-
-      <span id={labelId} className="visually-hidden">
-        Optional decorative gameplay clip. Pause it at any time.
+      {/* Invisible until focused — satisfies WCAG 2.2.2 without player chrome. */}
+      <button
+        type="button"
+        className="video-toggle"
+        aria-label={playing ? "Pause gameplay background" : "Play gameplay background"}
+        aria-describedby={helpId}
+        onClick={handleToggle}
+      >
+        {playing ? <PauseIcon /> : <PlayIcon />}
+      </button>
+      <span id={helpId} className="visually-hidden">
+        A background gameplay preview plays automatically while this section is
+        on screen. Activate to pause or resume it.
       </span>
     </div>
   );

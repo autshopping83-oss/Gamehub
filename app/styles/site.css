@@ -1,7 +1,6 @@
 /* ==========================================================================
    Gamehub — base + components
-   Rules: values come from tokens.css only; single radius; two shadows;
-   every interactive element carries rest/hover/active/focus-visible/disabled.
+   Press Kit Editorial. Tokens only; one radius; two shadows.
    ========================================================================== */
 
 /* --- Reset ---------------------------------------------------------------- */
@@ -26,7 +25,8 @@ body {
   font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  /* Deliberately NOT overflow-x: hidden — it masked a real hero overflow
+     during QA. Intentional crops use overflow-x: clip on their own scope. */
 }
 
 h1,
@@ -45,7 +45,9 @@ p {
 }
 
 ul,
-ol {
+ol,
+dl,
+dd {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -73,7 +75,7 @@ button {
   color: var(--surface);
 }
 
-/* --- Focus (Iron Law: visible, never removed) ----------------------------- */
+/* --- Focus ----------------------------------------------------------------- */
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
@@ -100,22 +102,6 @@ button {
   transform: translateY(0);
 }
 
-/* --- Layout primitives ---------------------------------------------------- */
-.container {
-  width: 100%;
-  max-width: var(--container);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-.section {
-  padding-block: var(--space-section);
-}
-
-.measure {
-  max-width: var(--measure);
-}
-
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -128,7 +114,19 @@ button {
   border: 0;
 }
 
-/* --- Section heading (rule + overline + title + optional aside) ---------- */
+/* --- Layout primitives ----------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--space-section);
+}
+
+/* --- Section heading -------------------------------------------------------- */
 .section-heading {
   display: flex;
   flex-wrap: wrap;
@@ -144,24 +142,25 @@ button {
   display: block;
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
   color: var(--ink-3);
 }
 
 .section-heading__title {
+  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-3);
 }
 
 .section-heading__aside {
   font-size: var(--step--1);
   color: var(--ink-3);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
   font-weight: var(--weight-semibold);
 }
 
-/* --- Buttons (all five states) -------------------------------------------- */
+/* --- Buttons (five states each) ---------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -174,7 +173,6 @@ button {
   font-size: var(--step-0);
   font-weight: var(--weight-semibold);
   line-height: 1.2;
-  text-align: center;
   cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out),
@@ -188,11 +186,11 @@ button {
 }
 
 .btn--primary:hover {
-  background: #1743bd;
+  background: var(--accent-hover);
 }
 
 .btn--primary:active {
-  background: #143aa6;
+  background: var(--accent-active);
   transform: translateY(1px);
 }
 
@@ -212,6 +210,21 @@ button {
   transform: translateY(1px);
 }
 
+/* Sits on the game's colour field in the closing band. */
+.btn--onfield {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.btn--onfield:hover {
+  background: var(--base);
+}
+
+.btn--onfield:active {
+  transform: translateY(1px);
+  background: var(--surface-2);
+}
+
 .btn:disabled,
 .btn[aria-disabled="true"] {
   cursor: not-allowed;
@@ -219,7 +232,28 @@ button {
   transform: none;
 }
 
-/* --- Header ---------------------------------------------------------------- */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 2.75rem;
+  font-size: var(--step-0);
+  font-weight: var(--weight-semibold);
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out),
+    gap var(--dur-fast) var(--ease-out);
+}
+
+.link-arrow:hover {
+  color: var(--accent);
+  gap: var(--space-xs);
+}
+
+.link-arrow:active {
+  color: var(--accent-active);
+}
+
+/* --- Header ------------------------------------------------------------------- */
 .site-header {
   position: sticky;
   top: 0;
@@ -233,7 +267,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: var(--space-m);
-  min-height: 4rem;
+  min-height: 3.75rem;
 }
 
 .brand {
@@ -241,22 +275,20 @@ button {
   align-items: center;
   gap: var(--space-2xs);
   min-block-size: 2.75rem;
-  font-size: var(--step-0);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-tight);
 }
 
 .brand__mark {
-  inline-size: 0.75rem;
-  block-size: 0.75rem;
+  inline-size: 0.7rem;
+  block-size: 0.7rem;
   background: var(--accent);
   border-radius: var(--radius);
 }
 
 .brand__name {
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
   font-size: var(--step--1);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-micro);
 }
 
 .nav {
@@ -270,12 +302,11 @@ button {
   display: inline-flex;
   align-items: center;
   min-block-size: 2.75rem;
-  padding-block: var(--space-3xs);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--ink-3);
   transition: color var(--dur-fast) var(--ease-out);
 }
 
@@ -295,8 +326,8 @@ button {
   content: "";
   position: absolute;
   inset-inline: 0;
-  bottom: -2px;
-  block-size: 2px;
+  bottom: 0.55rem;
+  block-size: var(--rule-strong);
   background: var(--accent);
 }
 
@@ -324,46 +355,33 @@ button {
   background: var(--surface-2);
 }
 
-.nav-toggle:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* --- Hero ------------------------------------------------------------------ */
+/* ==========================================================================
+   HERO — media is the protagonist
+   ========================================================================== */
 .hero {
-  position: relative;
-  overflow-x: clip;
-  padding-block: var(--space-2xl) var(--space-section);
-  border-bottom: 1px solid var(--line);
-}
-
-.hero__inner {
   display: grid;
-  gap: var(--space-xl);
-  padding-left: max(
-    var(--gutter),
-    calc((100% - var(--container)) / 2)
-  );
-  padding-right: var(--gutter);
+  overflow-x: clip;
 }
 
-.hero__copy {
+.hero__rail {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-m);
-  max-width: 34rem;
-}
-
-.hero__overline {
-  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2xs);
+  justify-content: space-between;
+  gap: var(--space-2xs) var(--space-s);
+  padding: var(--space-s) var(--gutter);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
   color: var(--ink-3);
+}
+
+.hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-width: 0;
 }
 
 .status-dot {
@@ -371,43 +389,72 @@ button {
   block-size: 0.5rem;
   border-radius: 50%;
   background: var(--status);
+  flex: none;
+}
+
+/* The colour field. Full bleed, no border, no radius — it is a field. */
+.hero__stage {
+  position: relative;
+}
+
+.hero__media {
+  aspect-ratio: 4 / 5;
+  /* min-height feeds back through aspect-ratio into a min-WIDTH. Uncapped,
+     62vh on a short phone widens the field past the viewport. 125vw is the
+     tallest a 4/5 box can be at full bleed. */
+  min-block-size: min(62vh, 125vw);
+}
+
+/* Title locked into the lower-left of the field. */
+.hero__lockup {
+  position: absolute;
+  inset-inline-start: var(--gutter);
+  inset-block-end: var(--space-l);
+  z-index: var(--z-raised);
+  max-width: min(90%, 46rem);
 }
 
 .hero__title {
   font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-hero);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
-}
-
-.hero__title em {
-  font-style: italic;
-  color: var(--accent);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  color: var(--surface);
+  text-shadow: 0 2px 24px rgb(0 0 0 / 0.18);
 }
 
 .hero__sub {
+  margin-top: var(--space-xs);
   font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
   font-size: var(--step-2);
   line-height: var(--leading-snug);
-  color: var(--accent);
-  margin-top: calc(-1 * var(--space-xs));
+  color: rgb(255 255 255 / 0.88);
 }
 
-.hero__lede {
-  font-size: var(--step-1);
-  line-height: var(--leading-snug);
-  color: var(--ink-2);
-  max-width: 30ch;
+.hero__lockup-actions {
+  margin-top: var(--space-m);
 }
 
-.hero__meta {
+.hero__foot {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2xs) var(--space-m);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-l);
+  padding: var(--space-l) var(--gutter) var(--space-xl);
+}
+
+.hero__availability {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.hero__availability-label {
   font-size: var(--step--1);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
   font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
   color: var(--ink-3);
 }
 
@@ -415,27 +462,21 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2xs);
-  padding-top: var(--space-2xs);
 }
 
-/* --- Media plate + bleed ---------------------------------------------------- */
-.hero__media {
-  position: relative;
-  margin-right: calc(-1 * var(--space-l));
-}
-
-.media-frame {
+/* ==========================================================================
+   GAME MEDIA — video > poster > designed cover
+   ========================================================================== */
+.game-media {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 4 / 3;
-  background: var(--game-warm);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-2);
+  isolation: isolate;
 }
 
-.media-frame__poster,
-.media-frame__video {
+.game-media__poster,
+.game-media__video,
+.game-media__video-layer,
+.game-media__video-layer > video {
   position: absolute;
   inset: 0;
   inline-size: 100%;
@@ -443,160 +484,134 @@ button {
   object-fit: cover;
 }
 
-/* Honest stand-in cover plate — large serif wordmark on the game's own colour.
-   Anchored top-right: the wall label owns the lower-left, the badge the upper-
-   left. Never used to imply real gameplay; always paired with the tag. */
-.plate-mark {
+.game-media__video-layer {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: var(--space-l);
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: clamp(2.5rem, 9vw, 6rem);
-  line-height: 0.88;
-  letter-spacing: -0.03em;
-  color: var(--game-warm-ink);
-  opacity: 0.34;
+}
+
+/* Keeps foreground type legible once real, brighter key art arrives.
+   Suppressed while the designed cover plate is showing — a scrim over a
+   flat colour field is just an unwanted gradient. */
+.game-media[data-media="art"] .game-media__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-raised);
   pointer-events: none;
-  user-select: none;
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 0.42) 0%,
+    rgb(0 0 0 / 0.12) 34%,
+    rgb(0 0 0 / 0) 62%
+  );
 }
 
-.media-frame__label {
+.game-media__scrim {
+  display: none;
+}
+
+/* The designed field used until real art exists. */
+.cover-plate {
   position: absolute;
+  inset: 0;
+}
+
+.cover-plate__mark {
+  position: absolute;
+  inline-size: var(--space-m);
+  block-size: var(--space-m);
+  border: 0 solid rgb(255 255 255 / 0.38);
+}
+
+.cover-plate__mark--tl {
+  top: var(--space-m);
   left: var(--space-m);
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.cover-plate__mark--tr {
+  top: var(--space-m);
+  right: var(--space-m);
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.cover-plate__mark--bl {
   bottom: var(--space-m);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-  max-width: 18rem;
-  padding: var(--space-s);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-1);
-  font-size: var(--step--1);
+  left: var(--space-m);
+  border-bottom-width: 1px;
+  border-left-width: 1px;
 }
 
-.media-frame__label dt {
-  color: var(--ink-3);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  font-weight: var(--weight-semibold);
+.cover-plate__mark--br {
+  bottom: var(--space-m);
+  right: var(--space-m);
+  border-bottom-width: 1px;
+  border-right-width: 1px;
 }
 
-.media-frame__label dd {
-  margin: 0;
-  color: var(--ink);
-  font-weight: var(--weight-semibold);
-}
-
-.media-frame__placeholder-tag {
+.cover-plate__rule {
   position: absolute;
-  top: var(--space-s);
-  left: var(--space-s);
-  padding: var(--space-3xs) var(--space-2xs);
-  background: rgb(23 26 31 / 0.72);
-  color: #fff;
-  border-radius: var(--radius);
-  font-size: var(--step--1);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  font-weight: var(--weight-semibold);
+  background: rgb(255 255 255 / 0.16);
 }
 
-/* --- Video control (WCAG 2.2.2 exception) --------------------------------- */
+.cover-plate__rule--h {
+  inset-inline: var(--space-m);
+  top: 38%;
+  block-size: 1px;
+}
+
+.cover-plate__rule--v {
+  inset-block: var(--space-m);
+  left: 62%;
+  inline-size: 1px;
+}
+
+.cover-plate__index {
+  position: absolute;
+  top: var(--space-l);
+  left: var(--space-l);
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.72);
+}
+
+/* Off-screen until focused: keeps "no player UI" while remaining reachable. */
 .video-toggle {
   position: absolute;
-  right: var(--space-s);
-  bottom: var(--space-s);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.video-toggle:focus-visible {
+  position: absolute;
+  inset-block-end: var(--space-s);
+  inset-inline-end: var(--space-s);
+  width: auto;
+  height: auto;
+  clip-path: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-inline-size: 2.5rem;
-  min-block-size: 2.5rem;
+  min-inline-size: 2.75rem;
+  min-block-size: 2.75rem;
   padding: 0;
-  background: rgb(255 255 255 / 0.92);
+  background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius);
-  cursor: pointer;
-  transition: background-color var(--dur-fast) var(--ease-out),
-    border-color var(--dur-fast) var(--ease-out);
 }
 
-.video-toggle:hover {
-  background: var(--surface);
-  border-color: var(--ink);
-}
-
-.video-toggle:active {
-  background: var(--surface-2);
-}
-
-.video-toggle:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* --- Wall label (hangs off the lower-left of the media) -------------------- */
-.wall-label {
-  position: absolute;
-  left: calc(-1 * var(--space-m));
-  bottom: calc(-1 * var(--space-l));
-  z-index: var(--z-raised);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-  min-inline-size: 13rem;
-  padding: var(--space-s);
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-1);
-}
-
-.wall-label__index {
-  font-size: var(--step--1);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  color: var(--ink-3);
-  font-weight: var(--weight-semibold);
-}
-
-.wall-label__title {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: var(--step-1);
-  line-height: var(--leading-snug);
-}
-
-.wall-label__rows {
-  display: grid;
-  gap: var(--space-3xs);
-  margin-top: var(--space-3xs);
-  padding-top: var(--space-2xs);
-  border-top: 1px solid var(--line);
-  font-size: var(--step--1);
-}
-
-.wall-label__row {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--space-s);
-}
-
-.wall-label__key {
-  color: var(--ink-3);
-}
-
-.wall-label__value {
-  color: var(--ink);
-  font-weight: var(--weight-semibold);
-  text-align: right;
-}
-
-/* --- Platform / store buttons ---------------------------------------------- */
+/* --- Platform buttons --------------------------------------------------------- */
 .platform-row {
   display: flex;
   flex-wrap: wrap;
@@ -617,6 +632,7 @@ button {
   font-weight: var(--weight-semibold);
   cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out),
     transform var(--dur-fast) var(--ease-out);
 }
@@ -636,6 +652,7 @@ a.platform-btn:active {
   cursor: not-allowed;
   color: var(--ink-3);
   background: var(--surface-2);
+  border-color: var(--line);
 }
 
 .platform-btn__note {
@@ -643,109 +660,450 @@ a.platform-btn:active {
   font-weight: var(--weight-normal);
 }
 
-/* --- Game card -------------------------------------------------------------- */
-.game-card {
-  display: flex;
-  flex-direction: column;
+/* ==========================================================================
+   FEATURE SPREAD
+   ========================================================================== */
+.feature {
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: box-shadow var(--dur) var(--ease-out),
-    transform var(--dur) var(--ease-out);
+  border-block: 1px solid var(--line);
 }
 
-a.game-card:hover {
-  box-shadow: var(--shadow-2);
-  transform: translateY(-2px);
-}
-
-a.game-card:active {
-  transform: translateY(0);
-}
-
-.game-card__plate {
-  position: relative;
-  aspect-ratio: 4 / 3;
-  background: var(--game-warm);
-}
-
-.game-card__tag {
-  position: absolute;
-  top: var(--space-s);
-  left: var(--space-s);
-  padding: var(--space-3xs) var(--space-2xs);
-  background: var(--surface);
-  color: var(--ink);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
-  font-size: var(--step--1);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-}
-
-.game-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2xs);
-  padding: var(--space-m);
-}
-
-.game-card__title {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: var(--step-2);
-}
-
-.game-card__desc {
-  color: var(--ink-2);
-  font-size: var(--step-0);
-}
-
-.game-card__foot {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2xs);
-  align-items: center;
-  justify-content: space-between;
-  margin-top: var(--space-2xs);
-  padding-top: var(--space-2xs);
-  border-top: 1px solid var(--line);
-  font-size: var(--step--1);
-  color: var(--ink-3);
-  letter-spacing: var(--tracking-wide);
-  text-transform: uppercase;
-  font-weight: var(--weight-semibold);
-}
-
-/* --- Statement band --------------------------------------------------------- */
-.statement {
-  background: var(--surface);
-  border-bottom: 1px solid var(--line);
-}
-
-.statement__grid {
+.feature__lead {
   display: grid;
   gap: var(--space-l);
 }
 
-.statement__text {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: var(--step-3);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  max-width: 22ch;
+.feature__media {
+  min-width: 0;
 }
 
-.statement__body {
+.feature__body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-s);
+  align-items: flex-start;
+  gap: var(--space-m);
+  min-width: 0;
+}
+
+.feature__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.feature__lede {
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
   color: var(--ink-2);
   max-width: var(--measure);
 }
 
-/* --- Footer ------------------------------------------------------------------ */
+.feature__actions {
+  padding-top: var(--space-2xs);
+}
+
+.feature__stores {
+  display: grid;
+  gap: var(--space-2xs);
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--line);
+  inline-size: 100%;
+}
+
+.feature__rest {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+
+.feature__item {
+  display: grid;
+  gap: var(--space-m);
+}
+
+.feature__item-media {
+  min-width: 0;
+}
+
+.feature__item-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  min-width: 0;
+}
+
+.feature__item-title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-2);
+}
+
+.feature__item-copy {
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+/* ==========================================================================
+   CATALOGUE
+   ========================================================================== */
+.catalog__grid {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.catalog__empty {
+  margin: 0;
+  padding: var(--space-l) 0;
+  border-block: 1px solid var(--line);
+  color: var(--ink-2);
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+}
+
+.catalog__empty-text {
+  display: block;
+  max-width: 44ch;
+}
+
+.catalog-card {
+  display: grid;
+  gap: var(--space-s);
+}
+
+.catalog-card__media {
+  display: block;
+  overflow: hidden;
+}
+
+.catalog-card__media .game-media {
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.catalog-card:hover .catalog-card__media .game-media {
+  transform: scale(1.03);
+}
+
+.catalog-card__meta {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+.catalog-card__title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-2);
+  line-height: var(--leading-snug);
+}
+
+.catalog-card__labels {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.catalog-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-3xs);
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out),
+    gap var(--dur-fast) var(--ease-out);
+}
+
+.catalog-card:hover .catalog-card__cta {
+  color: var(--accent);
+  gap: var(--space-xs);
+}
+
+/* ==========================================================================
+   PUBLISHER
+   ========================================================================== */
+.publisher {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+
+.publisher__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.publisher__lead {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-3);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+}
+
+.publisher__points {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.publisher__points li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-m);
+  align-items: baseline;
+  padding-block: var(--space-m);
+  border-bottom: 1px solid var(--line);
+}
+
+.publisher__point-index {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  color: var(--accent);
+}
+
+.publisher__point-text {
+  color: var(--ink-2);
+  max-width: 52ch;
+}
+
+/* ==========================================================================
+   DISCOVER — closing band on the game's own field
+   ========================================================================== */
+.discover {
+  overflow-x: clip;
+}
+
+.discover__field {
+  position: relative;
+  padding: var(--space-2xl) var(--gutter);
+  min-block-size: 26rem;
+  display: flex;
+  align-items: center;
+}
+
+.discover__wordmark {
+  position: absolute;
+  inset-block-end: -0.18em;
+  inset-inline-end: -0.06em;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(5rem, 22vw, 18rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: rgb(255 255 255 / 0.16);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.discover__content {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  gap: var(--space-m);
+  justify-items: start;
+  max-width: 40rem;
+}
+
+.discover__overline {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.78);
+}
+
+.discover__title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-4);
+  line-height: 1.05;
+  color: var(--surface);
+  max-width: 18ch;
+  text-shadow: 0 2px 20px rgb(0 0 0 / 0.16);
+}
+
+/* ==========================================================================
+   GAME ENTRY (detail stub)
+   ========================================================================== */
+.entry-head {
+  padding: var(--space-xl) 0 var(--space-l);
+}
+
+.entry-head__inner {
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.entry-head__crumbs {
+  margin-bottom: var(--space-m);
+}
+
+.entry-head__labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-s);
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.entry-head__title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-5);
+  line-height: 0.95;
+}
+
+.entry-head__sub {
+  margin-top: var(--space-xs);
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: var(--step-2);
+  /* Not the accent: the tagline is editorial copy, not an action or a
+     status. Accent is reserved so it keeps its meaning. */
+  color: var(--ink-2);
+}
+
+.entry-stage {
+  padding-inline: var(--gutter);
+}
+
+.entry-stage .game-media {
+  max-inline-size: var(--container);
+  margin-inline: auto;
+}
+
+.entry-body__grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.entry-body__heading {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: var(--space-s);
+}
+
+.entry-body__copy {
+  color: var(--ink-2);
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  max-width: var(--measure);
+}
+
+.entry-body__aside {
+  display: grid;
+  gap: var(--space-l);
+  align-content: start;
+}
+
+.entry-body__block {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.spec-list {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.spec-list__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-s);
+  padding-block: var(--space-2xs);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--step--1);
+}
+
+.spec-list__row dt {
+  color: var(--ink-3);
+  letter-spacing: var(--tracking-micro);
+  text-transform: uppercase;
+  font-weight: var(--weight-semibold);
+}
+
+.spec-list__row dd {
+  color: var(--ink);
+  font-weight: var(--weight-semibold);
+  text-align: right;
+}
+
+.entry-related {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.entry-related__link {
+  display: grid;
+  gap: var(--space-s);
+  max-width: 48rem;
+}
+
+.entry-related__meta {
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+/* --- Generic page head --------------------------------------------------------- */
+.page-head {
+  padding-block: var(--space-xl) var(--space-l);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-head__title {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: var(--step-4);
+}
+
+.page-head__lede {
+  margin-top: var(--space-s);
+  color: var(--ink-2);
+  max-width: var(--measure);
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+}
+
+.game-grid {
+  display: grid;
+  gap: var(--space-l);
+}
+
+/* --- Reveal ---------------------------------------------------------------------- */
+/* The hidden state is scoped to `.js` so a reveal animation can never be the
+   reason content is missing: no JS, failed hydration, print and crawlers all
+   get the content as plain, visible markup. */
+.reveal {
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+}
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(var(--space-m));
+  will-change: opacity, transform;
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* --- Footer ---------------------------------------------------------------------- */
 .site-footer {
   background: var(--surface);
   border-top: 1px solid var(--line-strong);
@@ -764,7 +1122,7 @@ a.game-card:active {
 
 .site-footer__heading {
   font-size: var(--step--1);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-micro);
   text-transform: uppercase;
   font-weight: var(--weight-semibold);
   color: var(--ink-3);
@@ -774,7 +1132,6 @@ a.game-card:active {
 .site-footer__list {
   display: grid;
   gap: var(--space-3xs);
-  font-size: var(--step-0);
   color: var(--ink-2);
 }
 
@@ -787,7 +1144,7 @@ a.game-card:active {
 .site-footer__list a:hover {
   color: var(--ink);
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 0.2rem;
 }
 
 .site-footer__legal {
@@ -801,35 +1158,50 @@ a.game-card:active {
   color: var(--ink-3);
 }
 
-/* --- Page-level header (stub pages) ------------------------------------------ */
-.page-head {
-  padding-block: var(--space-2xl) var(--space-l);
-  border-bottom: 1px solid var(--line);
-}
-
-.page-head__title {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: var(--step-4);
-}
-
-.page-head__lede {
-  margin-top: var(--space-s);
-  color: var(--ink-2);
-  max-width: var(--measure);
-  font-size: var(--step-1);
-  line-height: var(--leading-snug);
-}
-
-/* --- Games index grid --------------------------------------------------------- */
-.game-grid {
-  display: grid;
-  gap: var(--space-l);
-}
-
 /* ==========================================================================
-   Breakpoints
+   BREAKPOINTS
    ========================================================================== */
 @media (min-width: 48em) {
+  /* A cinematic 16/9 band on a portrait tablet is both too short and, once
+     min-height feeds back through the ratio, far too wide. 4/3 holds a large
+     field and still leaves the action above the fold. Same width cap as the
+     mobile rule, recomputed for this ratio. */
+  .hero__media {
+    aspect-ratio: 4 / 3;
+    min-block-size: min(62vh, 75vw);
+  }
+
+  .feature__lead {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .feature__item {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .feature__item.is-flipped .feature__item-media {
+    order: 2;
+  }
+
+  .catalog__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .publisher__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
+
+  .entry-body__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-2xl);
+  }
+
   .site-footer__cols {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -837,50 +1209,39 @@ a.game-card:active {
   .game-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
-  .statement__grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-xl);
-    align-items: start;
-  }
 }
 
 @media (min-width: 64em) {
-  .hero {
-    padding-block: var(--space-3xl) var(--space-section);
-  }
-
-  .hero__inner {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-xl);
-    align-items: center;
-    padding-right: 0;
-  }
-
+  /* At 16:9 a wide viewport forces the field far past the fold and the
+     action disappears below it. Let the field own a capped height instead;
+     the media is object-fit: cover, so nothing distorts. */
   .hero__media {
-    margin-right: calc(-1 * var(--space-l));
+    aspect-ratio: auto;
+    min-block-size: min(64vh, 40rem);
   }
 
-  .media-frame {
-    aspect-ratio: 16 / 10;
+  .hero__lockup {
+    inset-block-end: var(--space-2xl);
   }
 
-  .wall-label {
-    left: calc(-1 * var(--space-m));
-  }
-}
-
-@media (max-width: 63.99em) {
-  .wall-label {
-    position: static;
-    margin-top: var(--space-m);
-    /* Pull back in from the media's full-bleed so it keeps the page gutter. */
-    margin-inline: var(--gutter);
+  .hero__sub {
+    font-size: var(--step-3);
   }
 
-  .hero__media {
-    margin-right: calc(-1 * var(--gutter));
-    margin-left: calc(-1 * var(--gutter));
+  .hero__foot {
+    padding-block: var(--space-xl) var(--space-2xl);
+  }
+
+  .catalog__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .discover__field {
+    min-block-size: 30rem;
+    padding-inline: max(
+      var(--gutter),
+      calc((100% - var(--container)) / 2)
+    );
   }
 }
 
@@ -908,17 +1269,20 @@ a.game-card:active {
   }
 
   .nav__link {
-    padding-block: var(--space-s);
     border-bottom: 1px solid var(--line);
   }
 
   .nav__link:last-child {
     border-bottom: 0;
   }
+
+  .nav__link[aria-current="page"]::after {
+    bottom: 0;
+  }
 }
 
 /* ==========================================================================
-   Reduced motion — a mandatory branch, not a nicety
+   REDUCED MOTION
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -932,5 +1296,23 @@ a.game-card:active {
     animation-iteration-count: 1 !important;
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .catalog-card:hover .catalog-card__media .game-media {
+    transform: none;
+  }
+}
+
+/* Print has no viewport to scroll, so nothing will ever "enter" it. */
+@media print {
+  .js .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
