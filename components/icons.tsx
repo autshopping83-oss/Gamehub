@@ -61,7 +61,46 @@ export function ArrowIcon({ title, ...props }: IconProps) {
   );
 }
 
-/** Small neutral storefront glyph — deliberately abstract, not a brand logo. */
+/**
+ * Official Google Play triangle mark. Multi-fill, no stroke — this is the
+ * brand asset, not a decorative glyph. Sized via width/height props.
+ */
+export function GooglePlayIcon({
+  title,
+  ...props
+}: SVGProps<SVGSVGElement> & { title?: string }) {
+  return (
+    <svg
+      width={20}
+      height={22}
+      viewBox="0 0 20 22"
+      fill="none"
+      aria-hidden={title ? undefined : true}
+      focusable="false"
+      {...props}
+    >
+      {title ? <title>{title}</title> : null}
+      <path
+        d="M1.1 0.7C0.7 1.1 0.5 1.7 0.5 2.5v17c0 0.8 0.2 1.4 0.6 1.8l0.1 0.1 9.5-9.5v-0.2L1.2 0.6 1.1 0.7z"
+        fill="#00D2FF"
+      />
+      <path
+        d="M14.4 14.9l-3.2-3.2v-0.2l3.2-3.2 0.1 0 3.8 2.2c1.1 0.6 1.1 1.7 0 2.3l-3.8 2.1-0.1 0z"
+        fill="#FFCE00"
+      />
+      <path
+        d="M14.5 14.8l-3.3-3.3L1.1 21.7c0.4 0.4 1 0.5 1.7 0.1l11.7-6.9"
+        fill="#FF3A44"
+      />
+      <path
+        d="M14.5 7.2L2.8 0.3C2.1-0.1 1.5 0 1.1 0.4l10.1 10.1 3.3-3.3z"
+        fill="#00E676"
+      />
+    </svg>
+  );
+}
+
+/** Neutral storefront glyph — only for platforms without a brand mark here. */
 export function StoreGlyph({ title, ...props }: IconProps) {
   return (
     <svg {...base} {...props}>

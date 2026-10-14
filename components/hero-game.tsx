@@ -3,20 +3,19 @@ import GameMedia from "@/components/game-media";
 import PlatformButton from "@/components/platform-button";
 import { ArrowIcon } from "@/components/icons";
 import { featuredGame, STATUS_LABEL } from "@/lib/games";
+import { isLiveLink } from "@/lib/platforms";
 
 /**
- * Hero as a living stage, not an article header.
+ * Hero as a game showcase, not a corporate header.
  *
- * Composition: a thin editorial rail, then a full-bleed colour field that owns
- * the viewport with the game's logotype locked into its lower-left corner,
- * then the platform/CTA row on paper beneath. Deliberately not a text-left /
- * image-right split — the media is the protagonist and the type is set into it.
- *
- * Real gameplay drops straight into `GameMedia`; until then the designed cover
- * plate occupies the field. No code change required either way.
+ * First viewport answers social traffic in order: this is a game →
+ * here is the gameplay → here is how you get it. The video field owns
+ * the screen; the lockup sits in it with the title, tagline, and the
+ * real Google Play install CTA.
  */
 export default function HeroGame() {
   const game = featuredGame();
+  const liveStore = game.storeLinks.find(isLiveLink);
 
   return (
     <section className="hero" aria-labelledby="hero-title">
@@ -32,13 +31,22 @@ export default function HeroGame() {
         <GameMedia game={game} className="hero__media" />
 
         <div className="hero__lockup">
+          <span className="hero__eyebrow">Featured game</span>
           <h1 className="hero__title" id="hero-title">
             {game.title}
           </h1>
           <p className="hero__sub">{game.tagline}</p>
 
-          {/* Primary action lives inside the field, with the game. */}
           <div className="hero__lockup-actions">
+            {liveStore ? (
+              <a
+                className="btn btn--store"
+                href={liveStore.href}
+                rel="noopener noreferrer"
+              >
+                Get it on Google Play
+              </a>
+            ) : null}
             <Link className="btn btn--onfield" href={`/games/${game.slug}`}>
               View game
               <ArrowIcon />

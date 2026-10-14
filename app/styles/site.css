@@ -1,6 +1,7 @@
 /* ==========================================================================
    Gamehub — base + components
-   Press Kit Editorial. Tokens only; one radius; two shadows.
+   Modern game platform. Cool off-white field, TEMPOX purple accents,
+   Space Grotesk. Media is always the protagonist.
    ========================================================================== */
 
 /* --- Reset ---------------------------------------------------------------- */
@@ -25,8 +26,6 @@ body {
   font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  /* Deliberately NOT overflow-x: hidden — it masked a real hero overflow
-     during QA. Intentional crops use overflow-x: clip on their own scope. */
 }
 
 h1,
@@ -34,7 +33,7 @@ h2,
 h3,
 h4 {
   margin: 0;
-  font-weight: var(--weight-normal);
+  font-weight: var(--weight-bold);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-tight);
   text-wrap: balance;
@@ -79,7 +78,7 @@ button {
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
 }
 
 .skip-link {
@@ -91,7 +90,7 @@ button {
   background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
   transform: translateY(calc(-100% - var(--space-s)));
@@ -133,8 +132,6 @@ button {
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-s) var(--space-l);
-  padding-top: var(--space-m);
-  border-top: 1px solid var(--line-strong);
   margin-bottom: var(--space-xl);
 }
 
@@ -142,34 +139,33 @@ button {
   display: block;
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--accent);
+  margin-bottom: var(--space-3xs);
 }
 
 .section-heading__title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-3);
+  letter-spacing: -0.03em;
 }
 
 .section-heading__aside {
   font-size: var(--step--1);
   color: var(--ink-3);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-medium);
 }
 
-/* --- Buttons (five states each) ---------------------------------------------- */
+/* --- Buttons -------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-2xs);
-  min-height: 2.75rem;
+  min-height: 2.875rem;
   padding: var(--space-2xs) var(--space-m);
   border: 1px solid transparent;
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-size: var(--step-0);
   font-weight: var(--weight-semibold);
   line-height: 1.2;
@@ -177,12 +173,14 @@ button {
   transition: background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 .btn--primary {
   background: var(--accent);
   color: var(--surface);
+  box-shadow: var(--shadow-1);
 }
 
 .btn--primary:hover {
@@ -210,10 +208,11 @@ button {
   transform: translateY(1px);
 }
 
-/* Sits on the game's colour field in the closing band. */
+/* Sits on the game's colour field. */
 .btn--onfield {
   background: var(--surface);
   color: var(--ink);
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.18);
 }
 
 .btn--onfield:hover {
@@ -222,7 +221,44 @@ button {
 
 .btn--onfield:active {
   transform: translateY(1px);
-  background: var(--surface-2);
+}
+
+/* Primary install CTA on a colour field — purple-filled for presence. */
+.btn--store {
+  background: var(--accent);
+  color: var(--surface);
+  border-color: transparent;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 0.22);
+  min-height: 3rem;
+  padding-inline: var(--space-l);
+  font-size: var(--step-1);
+}
+
+.btn--store:hover {
+  background: var(--accent-hover);
+}
+
+.btn--store:active {
+  background: var(--accent-active);
+  transform: translateY(1px);
+}
+
+.btn--store-onlight {
+  background: var(--accent);
+  color: var(--surface);
+  min-height: 3rem;
+  padding-inline: var(--space-l);
+  font-size: var(--step-0);
+  box-shadow: var(--shadow-2);
+}
+
+.btn--store-onlight:hover {
+  background: var(--accent-hover);
+}
+
+.btn--store-onlight:active {
+  background: var(--accent-active);
+  transform: translateY(1px);
 }
 
 .btn:disabled,
@@ -239,13 +275,13 @@ button {
   min-height: 2.75rem;
   font-size: var(--step-0);
   font-weight: var(--weight-semibold);
-  color: var(--ink);
+  color: var(--accent);
   transition: color var(--dur-fast) var(--ease-out),
     gap var(--dur-fast) var(--ease-out);
 }
 
 .link-arrow:hover {
-  color: var(--accent);
+  color: var(--accent-hover);
   gap: var(--space-xs);
 }
 
@@ -258,7 +294,9 @@ button {
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background: var(--base);
+  background: rgb(247 248 252 / 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
 
@@ -275,26 +313,27 @@ button {
   align-items: center;
   gap: var(--space-2xs);
   min-block-size: 2.75rem;
-  font-weight: var(--weight-semibold);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
 }
 
 .brand__mark {
-  inline-size: 0.7rem;
-  block-size: 0.7rem;
+  inline-size: 0.75rem;
+  block-size: 0.75rem;
   background: var(--accent);
-  border-radius: var(--radius);
+  border-radius: 0.25rem;
 }
 
 .brand__name {
-  font-size: var(--step--1);
+  font-size: var(--step-0);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.06em;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: var(--space-m);
+  gap: var(--space-xs);
 }
 
 .nav__link {
@@ -302,11 +341,10 @@ button {
   display: inline-flex;
   align-items: center;
   min-block-size: 2.75rem;
+  padding-inline: var(--space-2xs);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--ink-2);
   transition: color var(--dur-fast) var(--ease-out);
 }
 
@@ -319,16 +357,17 @@ button {
 }
 
 .nav__link[aria-current="page"] {
-  color: var(--ink);
+  color: var(--accent);
 }
 
 .nav__link[aria-current="page"]::after {
   content: "";
   position: absolute;
   inset-inline: 0;
-  bottom: 0.55rem;
-  block-size: var(--rule-strong);
+  bottom: 0.45rem;
+  block-size: 2px;
   background: var(--accent);
+  border-radius: 1px;
 }
 
 .nav-toggle {
@@ -340,7 +379,7 @@ button {
   padding: 0;
   background: transparent;
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out);
@@ -356,7 +395,7 @@ button {
 }
 
 /* ==========================================================================
-   HERO — media is the protagonist
+   HERO — the game is the product
    ========================================================================== */
 .hero {
   display: grid;
@@ -372,8 +411,12 @@ button {
   padding: var(--space-s) var(--gutter);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Rail sits on the page field — never white. Lockup eyebrow is the
+   white-on-colour variant, scoped to the stage. */
+.hero__rail .hero__eyebrow {
   color: var(--ink-3);
 }
 
@@ -392,48 +435,61 @@ button {
   flex: none;
 }
 
-/* The colour field. Full bleed, no border, no radius — it is a field. */
 .hero__stage {
   position: relative;
 }
 
 .hero__media {
   aspect-ratio: 4 / 5;
-  /* min-height feeds back through aspect-ratio into a min-WIDTH. Uncapped,
-     62vh on a short phone widens the field past the viewport. 125vw is the
-     tallest a 4/5 box can be at full bleed. */
   min-block-size: min(62vh, 125vw);
 }
 
-/* Title locked into the lower-left of the field. */
 .hero__lockup {
   position: absolute;
   inset-inline-start: var(--gutter);
   inset-block-end: var(--space-l);
   z-index: var(--z-raised);
-  max-width: min(90%, 46rem);
+  max-width: min(92%, 40rem);
+  display: grid;
+  gap: var(--space-xs);
+  justify-items: start;
+}
+
+.hero__eyebrow {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.88);
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.45);
 }
 
 .hero__title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-hero);
-  line-height: 0.9;
-  letter-spacing: -0.035em;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
   color: var(--surface);
-  text-shadow: 0 2px 24px rgb(0 0 0 / 0.18);
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 0.35),
+    0 4px 24px rgb(0 0 0 / 0.3);
 }
 
 .hero__sub {
-  margin-top: var(--space-xs);
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
-  font-size: var(--step-2);
+  font-size: var(--step-1);
+  font-weight: var(--weight-medium);
   line-height: var(--leading-snug);
-  color: rgb(255 255 255 / 0.88);
+  color: #ffffff;
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 0.45),
+    0 2px 14px rgb(0 0 0 / 0.3);
 }
 
 .hero__lockup-actions {
-  margin-top: var(--space-m);
+  margin-top: var(--space-2xs);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  align-items: center;
 }
 
 .hero__foot {
@@ -453,7 +509,7 @@ button {
 .hero__availability-label {
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -489,10 +545,8 @@ button {
   inset: 0;
 }
 
-/* Keeps foreground type legible once real, brighter key art arrives.
-   Suppressed while the designed cover plate is showing — a scrim over a
-   flat colour field is just an unwanted gradient. */
 .game-media[data-media="art"] .game-media__scrim {
+  display: block;
   position: absolute;
   inset: 0;
   z-index: var(--z-raised);
@@ -509,8 +563,7 @@ button {
   display: none;
 }
 
-/* Portrait gameplay (9:16): the full frame is the design. Contain, never
-   crop — the palette field around the video carries the composition. */
+/* Portrait gameplay (9:16): the full frame is the design. Contain, never crop. */
 .game-media[data-orientation="portrait"] .game-media__poster,
 .game-media[data-orientation="portrait"] .game-media__video,
 .game-media[data-orientation="portrait"] .game-media__video-layer,
@@ -518,10 +571,6 @@ button {
   object-fit: contain;
 }
 
-/* Hero with portrait media: on small screens the field matches the video's
-   own 9:16 so it fills edge-to-edge. From tablet up the field stays
-   full-bleed (the palette carries the composition and the title lockup);
-   height-capped, and contain centres the 9:16 frame on the field. */
 .hero__media[data-orientation="portrait"] {
   aspect-ratio: 9 / 16;
   min-block-size: 0;
@@ -536,82 +585,55 @@ button {
   }
 }
 
+/* Portrait scrim: only a light lift under the lockup so type reads on bright
+   frames. Gameplay stays vibrant — text-shadow does the rest of the work. */
 .game-media[data-orientation="portrait"] .game-media__scrim {
   background: linear-gradient(
     to top,
-    rgb(0 0 0 / 0.55) 0%,
-    rgb(0 0 0 / 0.22) 32%,
-    rgb(0 0 0 / 0) 58%
+    rgb(0 0 0 / 0.42) 0%,
+    rgb(0 0 0 / 0.2) 24%,
+    rgb(0 0 0 / 0.06) 46%,
+    rgb(0 0 0 / 0) 66%
   );
 }
 
-/* The designed field used until real art exists. */
+/* Designed cover — colour field + title mark, not printer's crop marks. */
 .cover-plate {
   position: absolute;
   inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-l);
 }
 
 .cover-plate__mark {
-  position: absolute;
-  inline-size: var(--space-m);
-  block-size: var(--space-m);
-  border: 0 solid rgb(255 255 255 / 0.38);
-}
-
-.cover-plate__mark--tl {
-  top: var(--space-m);
-  left: var(--space-m);
-  border-top-width: 1px;
-  border-left-width: 1px;
-}
-
-.cover-plate__mark--tr {
-  top: var(--space-m);
-  right: var(--space-m);
-  border-top-width: 1px;
-  border-right-width: 1px;
-}
-
-.cover-plate__mark--bl {
-  bottom: var(--space-m);
-  left: var(--space-m);
-  border-bottom-width: 1px;
-  border-left-width: 1px;
-}
-
-.cover-plate__mark--br {
-  bottom: var(--space-m);
-  right: var(--space-m);
-  border-bottom-width: 1px;
-  border-right-width: 1px;
+  display: none;
 }
 
 .cover-plate__rule {
-  position: absolute;
-  background: rgb(255 255 255 / 0.16);
-}
-
-.cover-plate__rule--h {
-  inset-inline: var(--space-m);
-  top: 38%;
-  block-size: 1px;
-}
-
-.cover-plate__rule--v {
-  inset-block: var(--space-m);
-  left: 62%;
-  inline-size: 1px;
+  display: none;
 }
 
 .cover-plate__index {
-  position: absolute;
-  top: var(--space-l);
-  left: var(--space-l);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgb(255 255 255 / 0.72);
+}
+
+.cover-plate__glyph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -58%;
+  font-size: clamp(2rem, 8vw, 4rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.04em;
+  color: rgb(255 255 255 / 0.22);
+  user-select: none;
+  pointer-events: none;
 }
 
 /* Off-screen until focused: keeps "no player UI" while remaining reachable. */
@@ -644,7 +666,7 @@ button {
   background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
 }
 
 /* --- Platform buttons --------------------------------------------------------- */
@@ -658,25 +680,26 @@ button {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  min-height: 2.75rem;
+  min-height: 2.875rem;
   padding: var(--space-2xs) var(--space-s);
   background: var(--surface);
   color: var(--ink);
   border: 1px solid var(--line-strong);
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
   cursor: pointer;
   transition: background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out),
     border-color var(--dur-fast) var(--ease-out),
-    transform var(--dur-fast) var(--ease-out);
+    transform var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 a.platform-btn:hover {
-  background: var(--ink);
-  color: var(--surface);
-  border-color: var(--ink);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: var(--shadow-1);
 }
 
 a.platform-btn:active {
@@ -689,6 +712,7 @@ a.platform-btn:active {
   color: var(--ink-3);
   background: var(--surface-2);
   border-color: var(--line);
+  box-shadow: none;
 }
 
 .platform-btn__note {
@@ -696,12 +720,18 @@ a.platform-btn:active {
   font-weight: var(--weight-normal);
 }
 
+.platform-btn__icon {
+  inline-size: 18px;
+  block-size: 20px;
+  object-fit: contain;
+  flex: none;
+}
+
 /* ==========================================================================
-   FEATURE SPREAD
+   FEATURE STRIP — short, visual, game-first
    ========================================================================== */
 .feature {
-  background: var(--surface);
-  border-block: 1px solid var(--line);
+  padding-block: var(--space-section);
 }
 
 .feature__lead {
@@ -727,8 +757,6 @@ a.platform-btn:active {
   gap: var(--space-2xs);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
   color: var(--ink-3);
 }
 
@@ -775,7 +803,6 @@ a.platform-btn:active {
 }
 
 .feature__item-title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-2);
 }
 
@@ -785,8 +812,12 @@ a.platform-btn:active {
 }
 
 /* ==========================================================================
-   CATALOGUE
+   CATALOG — game cards, artwork first
    ========================================================================== */
+.catalog {
+  padding-block: var(--space-section);
+}
+
 .catalog__grid {
   display: grid;
   gap: var(--space-l);
@@ -794,8 +825,10 @@ a.platform-btn:active {
 
 .catalog__empty {
   margin: 0;
-  padding: var(--space-l) 0;
-  border-block: 1px solid var(--line);
+  padding: var(--space-l);
+  background: var(--surface);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
   color: var(--ink-2);
   font-size: var(--step-1);
   line-height: var(--leading-snug);
@@ -808,12 +841,33 @@ a.platform-btn:active {
 
 .catalog-card {
   display: grid;
-  gap: var(--space-s);
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  transition: box-shadow var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out),
+    border-color var(--dur) var(--ease-out);
+  height: 100%;
+  align-content: start;
+}
+
+.catalog-card:hover {
+  box-shadow: var(--shadow-card);
+  transform: translateY(-3px);
+  border-color: rgb(76 29 149 / 0.2);
+}
+
+.catalog-card:active {
+  transform: translateY(-1px);
 }
 
 .catalog-card__media {
   display: block;
   overflow: hidden;
+  background: var(--surface-2);
 }
 
 .catalog-card__media .game-media {
@@ -821,93 +875,73 @@ a.platform-btn:active {
 }
 
 .catalog-card:hover .catalog-card__media .game-media {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .catalog-card__meta {
   display: grid;
   gap: var(--space-3xs);
+  padding: var(--space-m);
 }
 
 .catalog-card__title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-2);
-  line-height: var(--leading-snug);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.02em;
 }
 
 .catalog-card__labels {
   font-size: var(--step--1);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
+  font-weight: var(--weight-medium);
   color: var(--ink-3);
+}
+
+.catalog-card__copy {
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+  margin-top: var(--space-3xs);
 }
 
 .catalog-card__cta {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2xs);
-  margin-top: var(--space-3xs);
+  margin-top: var(--space-2xs);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
-  color: var(--ink);
-  transition: color var(--dur-fast) var(--ease-out),
-    gap var(--dur-fast) var(--ease-out);
+  color: var(--accent);
+  transition: gap var(--dur-fast) var(--ease-out);
 }
 
 .catalog-card:hover .catalog-card__cta {
-  color: var(--accent);
   gap: var(--space-xs);
 }
 
 /* ==========================================================================
-   PUBLISHER
+   PLATFORM BAND — short statement, not a manifesto
    ========================================================================== */
-.publisher {
+.platform-band {
   background: var(--surface);
   border-block: 1px solid var(--line);
+  padding-block: var(--space-2xl);
 }
 
-.publisher__grid {
+.platform-band__inner {
   display: grid;
-  gap: var(--space-xl);
-}
-
-.publisher__lead {
-  font-family: var(--font-serif), Georgia, serif;
-  font-size: var(--step-3);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-  max-width: 20ch;
-}
-
-.publisher__points {
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--line);
-}
-
-.publisher__points li {
-  display: grid;
-  grid-template-columns: auto 1fr;
   gap: var(--space-m);
-  align-items: baseline;
-  padding-block: var(--space-m);
-  border-bottom: 1px solid var(--line);
+  max-width: 40rem;
 }
 
-.publisher__point-index {
-  font-size: var(--step--1);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  color: var(--accent);
+.platform-band__title {
+  font-size: var(--step-3);
+  letter-spacing: -0.03em;
 }
 
-.publisher__point-text {
+.platform-band__copy {
+  font-size: var(--step-1);
   color: var(--ink-2);
-  max-width: 52ch;
+  line-height: var(--leading-snug);
 }
 
 /* ==========================================================================
@@ -920,7 +954,7 @@ a.platform-btn:active {
 .discover__field {
   position: relative;
   padding: var(--space-2xl) var(--gutter);
-  min-block-size: 26rem;
+  min-block-size: 24rem;
   display: flex;
   align-items: center;
 }
@@ -929,11 +963,11 @@ a.platform-btn:active {
   position: absolute;
   inset-block-end: -0.18em;
   inset-inline-end: -0.06em;
-  font-family: var(--font-serif), Georgia, serif;
   font-size: clamp(5rem, 22vw, 18rem);
+  font-weight: var(--weight-bold);
   line-height: 0.8;
-  letter-spacing: -0.04em;
-  color: rgb(255 255 255 / 0.16);
+  letter-spacing: -0.05em;
+  color: rgb(255 255 255 / 0.12);
   pointer-events: none;
   user-select: none;
   white-space: nowrap;
@@ -951,13 +985,12 @@ a.platform-btn:active {
 .discover__overline {
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.78);
+  color: rgb(255 255 255 / 0.72);
 }
 
 .discover__title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-4);
   line-height: 1.05;
   color: var(--surface);
@@ -966,7 +999,7 @@ a.platform-btn:active {
 }
 
 /* ==========================================================================
-   GAME ENTRY (detail stub)
+   GAME ENTRY (detail)
    ========================================================================== */
 .entry-head {
   padding: var(--space-xl) 0 var(--space-l);
@@ -989,24 +1022,18 @@ a.platform-btn:active {
   margin-bottom: var(--space-s);
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
   color: var(--ink-3);
 }
 
 .entry-head__title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-5);
   line-height: 0.95;
 }
 
 .entry-head__sub {
   margin-top: var(--space-xs);
-  font-family: var(--font-serif), Georgia, serif;
-  font-style: italic;
   font-size: var(--step-2);
-  /* Not the accent: the tagline is editorial copy, not an action or a
-     status. Accent is reserved so it keeps its meaning. */
+  font-weight: var(--weight-medium);
   color: var(--ink-2);
 }
 
@@ -1017,9 +1044,9 @@ a.platform-btn:active {
 .entry-stage .game-media {
   max-inline-size: var(--container);
   margin-inline: auto;
+  border-radius: var(--radius);
 }
 
-/* Portrait gameplay on the detail page: phone-shaped frame, never cropped. */
 .entry-stage .game-media[data-orientation="portrait"] {
   aspect-ratio: 9 / 16;
   max-inline-size: min(100%, 22rem);
@@ -1034,9 +1061,9 @@ a.platform-btn:active {
 .entry-body__heading {
   font-size: var(--step--1);
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--accent);
   margin-bottom: var(--space-s);
 }
 
@@ -1074,8 +1101,6 @@ a.platform-btn:active {
 
 .spec-list__row dt {
   color: var(--ink-3);
-  letter-spacing: var(--tracking-micro);
-  text-transform: uppercase;
   font-weight: var(--weight-semibold);
 }
 
@@ -1108,7 +1133,6 @@ a.platform-btn:active {
 }
 
 .page-head__title {
-  font-family: var(--font-serif), Georgia, serif;
   font-size: var(--step-4);
 }
 
@@ -1125,10 +1149,37 @@ a.platform-btn:active {
   gap: var(--space-l);
 }
 
+/* --- About statement ----------------------------------------------------------- */
+.statement__grid {
+  display: grid;
+  gap: var(--space-l);
+}
+
+.statement__text {
+  font-size: var(--step-3);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  max-width: 16ch;
+}
+
+.statement__body {
+  display: grid;
+  gap: var(--space-m);
+  color: var(--ink-2);
+  max-width: var(--measure);
+  font-size: var(--step-0);
+  line-height: var(--leading-copy);
+}
+
+.statement__body a {
+  color: var(--accent);
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* --- Reveal ---------------------------------------------------------------------- */
-/* The hidden state is scoped to `.js` so a reveal animation can never be the
-   reason content is missing: no JS, failed hydration, print and crawlers all
-   get the content as plain, visible markup. */
 .reveal {
   transition: opacity var(--dur-slow) var(--ease-out),
     transform var(--dur-slow) var(--ease-out);
@@ -1149,7 +1200,7 @@ a.platform-btn:active {
 /* --- Footer ---------------------------------------------------------------------- */
 .site-footer {
   background: var(--surface);
-  border-top: 1px solid var(--line-strong);
+  border-top: 1px solid var(--line);
 }
 
 .site-footer__inner {
@@ -1165,10 +1216,10 @@ a.platform-btn:active {
 
 .site-footer__heading {
   font-size: var(--step--1);
-  letter-spacing: var(--tracking-micro);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   font-weight: var(--weight-semibold);
-  color: var(--ink-3);
+  color: var(--accent);
   margin-bottom: var(--space-2xs);
 }
 
@@ -1185,9 +1236,7 @@ a.platform-btn:active {
 }
 
 .site-footer__list a:hover {
-  color: var(--ink);
-  text-decoration: underline;
-  text-underline-offset: 0.2rem;
+  color: var(--accent);
 }
 
 .site-footer__legal {
@@ -1205,10 +1254,6 @@ a.platform-btn:active {
    BREAKPOINTS
    ========================================================================== */
 @media (min-width: 48em) {
-  /* A cinematic 16/9 band on a portrait tablet is both too short and, once
-     min-height feeds back through the ratio, far too wide. 4/3 holds a large
-     field and still leaves the action above the fold. Same width cap as the
-     mobile rule, recomputed for this ratio. */
   .hero__media {
     aspect-ratio: 4 / 3;
     min-block-size: min(62vh, 75vw);
@@ -1234,12 +1279,6 @@ a.platform-btn:active {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .publisher__grid {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    gap: var(--space-2xl);
-    align-items: start;
-  }
-
   .entry-body__grid {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     gap: var(--space-2xl);
@@ -1252,12 +1291,15 @@ a.platform-btn:active {
   .game-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .statement__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: var(--space-2xl);
+    align-items: start;
+  }
 }
 
 @media (min-width: 64em) {
-  /* At 16:9 a wide viewport forces the field far past the fold and the
-     action disappears below it. Let the field own a capped height instead;
-     the media is object-fit: cover, so nothing distorts. */
   .hero__media {
     aspect-ratio: auto;
     min-block-size: min(64vh, 40rem);
@@ -1268,7 +1310,7 @@ a.platform-btn:active {
   }
 
   .hero__sub {
-    font-size: var(--step-3);
+    font-size: var(--step-2);
   }
 
   .hero__foot {
@@ -1279,8 +1321,12 @@ a.platform-btn:active {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .discover__field {
-    min-block-size: 30rem;
+    min-block-size: 28rem;
     padding-inline: max(
       var(--gutter),
       calc((100% - var(--container)) / 2)
@@ -1350,9 +1396,12 @@ a.platform-btn:active {
   .catalog-card:hover .catalog-card__media .game-media {
     transform: none;
   }
+
+  .catalog-card:hover {
+    transform: none;
+  }
 }
 
-/* Print has no viewport to scroll, so nothing will ever "enter" it. */
 @media print {
   .js .reveal {
     opacity: 1 !important;

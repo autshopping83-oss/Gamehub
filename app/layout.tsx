@@ -1,23 +1,15 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Instrument_Serif } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import SiteHeader from "@/components/site-header";
 import SiteFooter from "@/components/site-footer";
 import { organizationJsonLd, pageMetadata, SITE_NAME } from "@/lib/seo";
 import "@/app/styles/tokens.css";
 import "@/app/styles/site.css";
 
-const sans = Instrument_Sans({
+const sans = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const serif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-serif",
   display: "swap",
 });
 
@@ -32,11 +24,7 @@ export default function RootLayout({
   // suppressHydrationWarning: the inline script below adds `js` to <html>
   // before React hydrates, so the client className intentionally differs.
   return (
-    <html
-      lang="en"
-      className={`${sans.variable} ${serif.variable}`}
-      suppressHydrationWarning
-    >
+    <html lang="en" className={sans.variable} suppressHydrationWarning>
       <body>
         {/*
           Marks the document as script-capable before first paint. Scroll

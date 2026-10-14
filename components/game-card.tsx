@@ -3,10 +3,7 @@ import GameMedia from "@/components/game-media";
 import { STATUS_LABEL, type Game } from "@/lib/games";
 
 /**
- * Catalogue tile. Large media, minimal text, no border — the object should
- * read as an interactive editorial plate rather than a shop product.
- * Resolves to real key art the moment it exists; until then the designed
- * cover plate holds the space.
+ * Catalogue tile — same surface language as the home grid.
  */
 export default function GameCard({ game }: { game: Game }) {
   return (
@@ -19,6 +16,7 @@ export default function GameCard({ game }: { game: Game }) {
         <span className="catalog-card__labels">
           {STATUS_LABEL[game.status]} · {game.category}
         </span>
+        <span className="catalog-card__copy">{game.tagline}</span>
         <span className="catalog-card__cta">
           View game
           <span aria-hidden="true">→</span>

@@ -8,8 +8,8 @@ export default function SiteFooter() {
           <div>
             <h2 className="site-footer__heading">Gamehub</h2>
             <p style={{ color: "var(--ink-2)", maxWidth: "32ch" }}>
-              An independent game publisher. The website is the frame; the
-              gameplay is the art.
+              A modern game platform. Playable titles, real gameplay, clear
+              installs.
             </p>
           </div>
 
@@ -29,10 +29,16 @@ export default function SiteFooter() {
           </nav>
 
           <div>
-            <h2 className="site-footer__heading">Status</h2>
+            <h2 className="site-footer__heading">Get games</h2>
             <ul className="site-footer__list">
-              <li>Catalogue in progress</li>
-              <li>Media pending verification</li>
+              <li>
+                <a
+                  href="https://play.google.com/store/apps/details?id=cloud.bizflow.tempox"
+                  rel="noopener noreferrer"
+                >
+                  TEMPOX on Google Play
+                </a>
+              </li>
             </ul>
           </div>
         </div>

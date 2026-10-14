@@ -3,25 +3,19 @@ import { catalogGames, featuredGame } from "@/lib/games";
 import { ArrowIcon } from "@/components/icons";
 
 /**
- * Closing discovery band.
- *
- * Built on the featured game's own colour so the page ends on product, not on
- * an empty text block. The wordmark is treated as artwork, cropped with intent.
- *
- * The invitation follows the catalogue's real state: with a single title there
- * is nothing to browse, so the band points at that title instead of promising
- * a selection that does not exist yet.
+ * Closing band on the featured game's colour field. Ends on product,
+ * not on an empty text block.
  */
 export default function DiscoverCta() {
   const game = featuredGame();
   const hasMore = catalogGames(game.slug).length > 0;
 
-  const overline = hasMore ? "Discover our games" : "The first title";
+  const overline = hasMore ? "Discover" : "Play now";
   const title = hasMore
-    ? "Explore the catalogue and find your next game."
-    : `${game.title} is in development now.`;
+    ? "Browse every game on Gamehub."
+    : `${game.title} is out now.`;
   const href = hasMore ? "/games" : `/games/${game.slug}`;
-  const label = hasMore ? "Browse games" : "View the entry";
+  const label = hasMore ? "Browse games" : "View the game";
 
   return (
     <section className="discover" aria-labelledby="discover-title">

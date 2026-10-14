@@ -9,12 +9,9 @@ interface GameCatalogProps {
 }
 
 /**
- * Compact catalogue for everything beyond the feature.
- *
- * Large imagery, strong aspect ratios, minimal text, no card borders — the
- * objects should read as interactive editorial plates, not shop products.
- * When the catalogue is empty the section still renders, with an honest note
- * rather than a blank gap or an invented title.
+ * Game grid below the feature. Artwork first, then title and a one-line
+ * hook. Cards are interactive surfaces — shadow, lift, accent CTA — not
+ * editorial plates. Empty state is honest, never a blank grid.
  */
 export default function GameCatalog({ games }: GameCatalogProps) {
   const isEmpty = games.length === 0;
@@ -24,9 +21,9 @@ export default function GameCatalog({ games }: GameCatalogProps) {
       <div className="container">
         <div className="section-heading">
           <div>
-            <span className="section-heading__overline">Catalogue</span>
+            <span className="section-heading__overline">More games</span>
             <h2 className="section-heading__title" id="catalog-title">
-              More games
+              The catalogue
             </h2>
           </div>
           {!isEmpty ? (
@@ -38,12 +35,10 @@ export default function GameCatalog({ games }: GameCatalogProps) {
 
         {isEmpty ? (
           <Reveal>
-            {/* Rules run the full container so the note reads as a deliberate
-                statement band; only the copy is held to a readable measure. */}
             <p className="catalog__empty">
               <span className="catalog__empty-text">
-                The next title is in development. It will appear here first —
-                nothing is listed until it can be shown properly.
+                More titles are in the works. They will show up here as soon as
+                they are ready to play.
               </span>
             </p>
           </Reveal>
@@ -61,6 +56,7 @@ export default function GameCatalog({ games }: GameCatalogProps) {
                       <span className="catalog-card__labels">
                         {STATUS_LABEL[game.status]} · {game.category}
                       </span>
+                      <span className="catalog-card__copy">{game.tagline}</span>
                       <span className="catalog-card__cta">
                         View game
                         <ArrowIcon />

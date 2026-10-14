@@ -6,14 +6,10 @@ import { ArrowIcon } from "@/components/icons";
 import { STATUS_LABEL, type Game } from "@/lib/games";
 
 /**
- * The feature spread — the informational layer that follows the hero's hook.
- *
- * One entry is the featured title's full record. As the catalogue grows the
- * same component lays out a large lead entry with smaller secondary entries
- * beside it, alternating media side so the rhythm never becomes a card grid.
- * Each game keeps its own media composition.
+ * Featured game record after the hero hook. Visual and short — description,
+ * status, install. As more titles arrive the same layout holds a lead plus
+ * smaller entries without becoming a second catalogue.
  */
-
 interface FeatureSpreadProps {
   games: Game[];
 }
@@ -27,9 +23,7 @@ export default function FeatureSpread({ games }: FeatureSpreadProps) {
       <div className="container">
         <div className="section-heading">
           <div>
-            {/* "In focus", not "Selected" + the title again — the hero has
-                already announced the name at full size a screen above. */}
-            <span className="section-heading__overline">In focus</span>
+            <span className="section-heading__overline">Featured</span>
             <h2 className="section-heading__title" id="selected-title">
               {lead.title}
             </h2>
@@ -71,7 +65,7 @@ export default function FeatureSpread({ games }: FeatureSpreadProps) {
 
               {lead.storeLinks.length > 0 ? (
                 <div className="feature__stores">
-                  <span className="hero__availability-label">Available on</span>
+                  <span className="hero__availability-label">Get the game</span>
                   <div className="platform-row">
                     {lead.storeLinks.map((link) => (
                       <PlatformButton key={link.platform} link={link} />
@@ -86,7 +80,10 @@ export default function FeatureSpread({ games }: FeatureSpreadProps) {
         {rest.length > 0 ? (
           <ul className="feature__rest">
             {rest.map((game, index) => (
-              <li key={game.slug} className={index % 2 === 1 ? "is-flipped" : undefined}>
+              <li
+                key={game.slug}
+                className={index % 2 === 1 ? "is-flipped" : undefined}
+              >
                 <Reveal delay={index * 60}>
                   <article className="feature__item">
                     <div className="feature__item-media">

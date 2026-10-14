@@ -1,29 +1,30 @@
 /* ==========================================================================
    Gamehub — design tokens
-   Press Kit Editorial. Every value traces to a scale; no ad-hoc values.
+   Modern game platform. Cool off-white field, TEMPOX purple accent,
+   dark ink. Games supply their own colour; the platform stays neutral.
    ========================================================================== */
 
 :root {
-  /* --- Surface ladder (light) ------------------------------------------ */
-  --base: #f5f6f8;
+  /* --- Surface ladder (cool off-white) --------------------------------- */
+  --base: #f7f8fc;
   --surface: #ffffff;
-  --surface-2: #eef1f5;
+  --surface-2: #eef1f7;
 
   /* --- Ink ramp --------------------------------------------------------- */
-  --ink: #171a1f;
-  --ink-2: #4a5262;
-  --ink-3: #5a6270;
+  --ink: #12141a;
+  --ink-2: #3d4454;
+  --ink-3: #5c6475;
 
-  /* --- Accent / interaction -------------------------------------------- */
-  --accent: #1d4ed8;
-  --accent-hover: #1743bd;
-  --accent-active: #143aa6;
-  --focus: #1d4ed8;
+  /* --- Accent / interaction (TEMPOX purple) ---------------------------- */
+  --accent: #4c1d95;
+  --accent-hover: #5b21b6;
+  --accent-active: #3b0f7a;
+  --focus: #4c1d95;
   --status: #f59e0b;
 
   /* --- Lines ------------------------------------------------------------ */
-  --line: rgb(23 26 31 / 0.08);
-  --line-strong: #858d9b;
+  --line: rgb(18 20 26 / 0.08);
+  --line-strong: #9aa1b0;
 
   /* --- Space scale ------------------------------------------------------ */
   --space-3xs: 0.25rem;
@@ -35,47 +36,49 @@
   --space-xl: 3rem;
   --space-2xl: 4.5rem;
   --space-3xl: 7rem;
-  --space-section: clamp(2.5rem, 1.75rem + 4vw, 6rem);
+  --space-section: clamp(2.75rem, 1.75rem + 4vw, 6rem);
 
-  /* --- Type scale (1.333) ---------------------------------------------- */
-  --step--1: 0.75rem;
+  /* --- Type scale (1.25) ------------------------------------------------ */
+  --step--1: 0.8rem;
   --step-0: 1rem;
-  --step-1: 1.333rem;
-  --step-2: 1.777rem;
-  --step-3: 2.369rem;
-  --step-4: 3.157rem;
-  --step-5: 4.209rem;
-  --step-6: 5.61rem;
-  --step-hero: clamp(3rem, 1.4rem + 6.6vw, 7.5rem);
+  --step-1: 1.25rem;
+  --step-2: 1.563rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+  --step-5: 3.052rem;
+  --step-6: 3.815rem;
+  --step-hero: clamp(2.75rem, 1.2rem + 6.2vw, 6.5rem);
 
-  --leading-tight: 1.02;
-  --leading-snug: 1.22;
-  --leading-normal: 1.6;
-  --leading-copy: 1.7;
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-normal: 1.55;
+  --leading-copy: 1.65;
 
-  --tracking-tight: -0.03em;
-  --tracking-micro: 0.16em;
+  --tracking-tight: -0.035em;
+  --tracking-micro: 0.04em;
 
   --weight-normal: 400;
+  --weight-medium: 500;
   --weight-semibold: 600;
+  --weight-bold: 700;
 
   /* --- Layout ----------------------------------------------------------- */
   --container: 76rem;
-  --measure: 62ch;
+  --measure: 60ch;
   --gutter: clamp(1.25rem, 0.4rem + 3vw, 3.5rem);
 
   /* --- Form ------------------------------------------------------------- */
-  /* rem so the radius follows the user's font-size setting, like everything
-     else in the scale. Shadows stay in px — they are light, not type. */
-  --radius: 0.5rem;
+  --radius: 0.75rem;
+  --radius-sm: 0.5rem;
   --rule-strong: 2px;
-  --shadow-1: 0 1px 2px rgb(23 26 31 / 0.06), 0 1px 1px rgb(23 26 31 / 0.04);
-  --shadow-2: 0 2px 4px rgb(23 26 31 / 0.05), 0 14px 40px rgb(23 26 31 / 0.1);
+  --shadow-1: 0 1px 2px rgb(18 20 26 / 0.05);
+  --shadow-2: 0 4px 16px rgb(18 20 26 / 0.07), 0 1px 3px rgb(18 20 26 / 0.04);
+  --shadow-card: 0 2px 8px rgb(18 20 26 / 0.06), 0 8px 28px rgb(18 20 26 / 0.07);
 
   /* --- Motion ----------------------------------------------------------- */
   --dur-fast: 120ms;
-  --dur: 240ms;
-  --dur-slow: 640ms;
+  --dur: 220ms;
+  --dur-slow: 500ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
 
