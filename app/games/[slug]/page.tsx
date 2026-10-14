@@ -69,7 +69,12 @@ export default async function GameDetailPage({ params }: PageProps) {
       </header>
 
       <div className="entry-stage">
-        <GameMedia game={game} ratio="16 / 9" />
+        <GameMedia
+          game={game}
+          ratio={
+            game.assets.orientation === "portrait" ? "9 / 16" : "16 / 9"
+          }
+        />
       </div>
 
       <section className="section entry-body" aria-labelledby="entry-about">

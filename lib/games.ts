@@ -28,6 +28,11 @@ export interface GameAssets {
   cover?: string;
   /** Transparent app icon. */
   icon?: string;
+  /**
+   * Portrait (9:16) gameplay. Display containers switch to object-fit:
+   * contain so the full frame is always visible — never cropped.
+   */
+  orientation?: "portrait";
 }
 
 export interface Game {
@@ -47,6 +52,29 @@ export interface Game {
 }
 
 export const games: Game[] = [
+  {
+    slug: "tempox",
+    title: "TEMPOX",
+    tagline: "Reflexes under pressure.",
+    description:
+      "TEMPOX is a released Android game built around short, high-focus rounds: find the odd symbol, repeat memory sequences, and solve mental math against the clock. Every hit builds a combo; every miss costs time.",
+    status: "released",
+    category: "Casual",
+    releaseYear: 2026,
+    platforms: ["Android"],
+    storeLinks: [
+      {
+        platform: "google-play",
+        href: "https://play.google.com/store/apps/details?id=cloud.bizflow.tempox",
+      },
+    ],
+    palette: { background: "#4C1D95", foreground: "#FFFFFF" },
+    assets: {
+      video: "tempox/hero.mp4",
+      poster: "tempox/hero-poster.jpg",
+      orientation: "portrait",
+    },
+  },
   {
     slug: "kitefall",
     title: "Kitefall",

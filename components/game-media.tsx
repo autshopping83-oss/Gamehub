@@ -33,6 +33,7 @@ export default function GameMedia({
     <div
       className={`game-media game-media--${variant}${className ? ` ${className}` : ""}`}
       data-media={hasArt ? "art" : "plate"}
+      data-orientation={game.assets.orientation}
       style={{
         background: game.palette.background,
         color: game.palette.foreground,

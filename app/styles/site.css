@@ -509,6 +509,42 @@ button {
   display: none;
 }
 
+/* Portrait gameplay (9:16): the full frame is the design. Contain, never
+   crop — the palette field around the video carries the composition. */
+.game-media[data-orientation="portrait"] .game-media__poster,
+.game-media[data-orientation="portrait"] .game-media__video,
+.game-media[data-orientation="portrait"] .game-media__video-layer,
+.game-media[data-orientation="portrait"] .game-media__video-layer > video {
+  object-fit: contain;
+}
+
+/* Hero with portrait media: on small screens the field matches the video's
+   own 9:16 so it fills edge-to-edge. From tablet up the field stays
+   full-bleed (the palette carries the composition and the title lockup);
+   height-capped, and contain centres the 9:16 frame on the field. */
+.hero__media[data-orientation="portrait"] {
+  aspect-ratio: 9 / 16;
+  min-block-size: 0;
+}
+
+@media (min-width: 48em) {
+  .hero__media[data-orientation="portrait"] {
+    aspect-ratio: auto;
+    min-block-size: min(78vh, 46rem);
+    max-block-size: none;
+    margin-inline: 0;
+  }
+}
+
+.game-media[data-orientation="portrait"] .game-media__scrim {
+  background: linear-gradient(
+    to top,
+    rgb(0 0 0 / 0.55) 0%,
+    rgb(0 0 0 / 0.22) 32%,
+    rgb(0 0 0 / 0) 58%
+  );
+}
+
 /* The designed field used until real art exists. */
 .cover-plate {
   position: absolute;
@@ -980,6 +1016,13 @@ a.platform-btn:active {
 
 .entry-stage .game-media {
   max-inline-size: var(--container);
+  margin-inline: auto;
+}
+
+/* Portrait gameplay on the detail page: phone-shaped frame, never cropped. */
+.entry-stage .game-media[data-orientation="portrait"] {
+  aspect-ratio: 9 / 16;
+  max-inline-size: min(100%, 22rem);
   margin-inline: auto;
 }
 
