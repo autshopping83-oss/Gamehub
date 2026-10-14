@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Games",
-  description: "The Gamehub catalogue. Entries appear as material is verified.",
+  description: "The GAMEHUB catalogue. Entries appear as material is verified.",
   path: "/games",
 });
 

@@ -15,7 +15,7 @@ export default function PublisherBand() {
               A home for games.
             </h2>
             <p className="platform-band__copy">
-              Gamehub is a growing catalogue of mobile games. Each title gets
+              GAMEHUB is a growing catalogue of mobile games. Each title gets
               its own colour, its own trailer, and a clear path to install.
               Gameplay first — always.
             </p>

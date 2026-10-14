@@ -12,7 +12,7 @@ export default function DiscoverCta() {
 
   const overline = hasMore ? "Discover" : "Play now";
   const title = hasMore
-    ? "Browse every game on Gamehub."
+    ? "Browse every game on GAMEHUB."
     : `${game.title} is out now.`;
   const href = hasMore ? "/games" : `/games/${game.slug}`;
   const label = hasMore ? "Browse games" : "View the game";

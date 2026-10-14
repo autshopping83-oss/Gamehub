@@ -7,9 +7,9 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").re
   "",
 );
 
-export const SITE_NAME = "Gamehub";
+export const SITE_NAME = "GAMEHUB";
 export const SITE_DESCRIPTION =
-  "Gamehub is an independent game publisher. A quiet frame for finished and in-development work.";
+  "GAMEHUB is a modern game platform. Playable titles, real gameplay, clear installs.";
 
 export const siteUrlWith = (path = "/"): string => {
   const normalized = path.startsWith("/") ? path : `/${path}`;

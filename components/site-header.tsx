@@ -32,9 +32,16 @@ export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="container site-header__inner">
-        <Link className="brand" href="/" aria-label="Gamehub — home">
-          <span className="brand__mark" aria-hidden="true" />
-          <span className="brand__name">Gamehub</span>
+        <Link className="brand" href="/" aria-label="GAMEHUB — home">
+          <img
+            className="brand__logo"
+            src="/brand/gamehub-logo.png"
+            alt=""
+            width={132}
+            height={32}
+            decoding="async"
+          />
+          <span className="brand__name visually-hidden">GAMEHUB</span>
         </Link>
 
         <button

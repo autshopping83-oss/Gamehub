@@ -6,7 +6,7 @@ export default function SiteFooter() {
       <div className="container site-footer__inner">
         <div className="site-footer__cols">
           <div>
-            <h2 className="site-footer__heading">Gamehub</h2>
+            <h2 className="site-footer__heading">GAMEHUB</h2>
             <p style={{ color: "var(--ink-2)", maxWidth: "32ch" }}>
               A modern game platform. Playable titles, real gameplay, clear
               installs.
@@ -44,7 +44,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="site-footer__legal">
-          <span>© {new Date().getFullYear()} Gamehub</span>
+          <span>© {new Date().getFullYear()} GAMEHUB</span>
           <span>All game artwork remains property of its owners.</span>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "About",
   description:
-    "Gamehub is a modern game platform. Playable titles, real gameplay, clear installs.",
+    "GAMEHUB is a modern game platform. Playable titles, real gameplay, clear installs.",
   path: "/about",
 });
 
@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="container">
           <h1 className="page-head__title">About</h1>
           <p className="page-head__lede">
-            Gamehub is a game platform — not a studio brochure. Games first,
+            GAMEHUB is a game platform — not a studio brochure. Games first,
             always.
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function AboutPage() {
 
             <div className="statement__body">
               <p>
-                Gamehub collects playable mobile games in one place. Each entry
+                GAMEHUB collects playable mobile games in one place. Each entry
                 leads with real gameplay video, a short hook, and a direct
                 install link. No fake screenshots, no empty promises.
               </p>
