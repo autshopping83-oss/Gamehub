@@ -12,11 +12,11 @@ export interface GamePalette {
  * `public/games/<slug>/`. Missing files must degrade gracefully — the UI
  * falls back to the designed cover plate, never to a labelled empty box.
  *
- *   public/games/kitefall/hero.webm
- *   public/games/kitefall/hero.mp4
- *   public/games/kitefall/hero-poster.webp
- *   public/games/kitefall/screenshot-01.webp
- *   public/games/kitefall/icon.webp
+ *   public/games/<slug>/hero.webm
+ *   public/games/<slug>/hero.mp4
+ *   public/games/<slug>/hero-poster.webp
+ *   public/games/<slug>/screenshot-01.webp
+ *   public/games/<slug>/icon.webp
  */
 export interface GameAssets {
   /** Gameplay loop. Provide .webm then .mp4 for wide codec support. */
@@ -74,23 +74,6 @@ export const games: Game[] = [
       poster: "tempox/hero-poster.jpg",
       orientation: "portrait",
     },
-  },
-  {
-    slug: "kitefall",
-    title: "Kitefall",
-    tagline: "A study in falling.",
-    description:
-      "Kitefall is an in-development arcade game built around a single mechanic: a long fall, read in advance, corrected in the moment. This entry is placeholder content for the site build and does not represent shipped gameplay.",
-    status: "in-development",
-    category: "Arcade",
-    releaseYear: null,
-    platforms: ["Android"],
-    storeLinks: [
-      { platform: "google-play", href: "" },
-      { platform: "app-gallery", href: "" },
-    ],
-    palette: { background: "#B4471F", foreground: "#FFFFFF" },
-    assets: {},
   },
 ];
 
