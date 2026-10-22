@@ -39,7 +39,10 @@ export const metadata: Metadata = {
   },
   manifest: "/brand/manifest.webmanifest",
   verification: {
-    google: "qxWZhWDZHBr8TKSD_l37QVkhKE2HChOAedb9-hkmgqA",
+    google: [
+      "qxWZhWDZHBr8TKSD_l37QVkhKE2HChOAedb9-hkmgqA",
+      "PvmCbQE34svGKEnVqHMcwNODvoGyfKDiLBFoRzC3yEc",
+    ],
   },
   openGraph: {
     type: "website",
