@@ -1427,3 +1427,210 @@ a.platform-btn:active {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   LEGAL DOCUMENTS (Pushbound privacy policy / terms of use)
+
+   Inherits the GameHub shell — same tokens, same light field, same type
+   scale. Two columns on wide screens (index + text), single column on
+   phones with the index stacked above the document.
+   ========================================================================== */
+.legal-head__crumbs {
+  margin-bottom: var(--space-s);
+}
+
+.legal-head__overline {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.legal-head__meta {
+  margin-top: var(--space-s);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+.legal__grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.legal__toc {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+  padding: var(--space-m);
+}
+
+.legal__toc-title {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.legal__toc-list {
+  margin-top: var(--space-s);
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: var(--space-3xs);
+  font-size: var(--step--1);
+  line-height: var(--leading-snug);
+}
+
+.legal__toc-list a {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.legal__toc-list a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}
+
+.legal__section + .legal__section {
+  margin-top: var(--space-xl);
+}
+
+.legal__section h2 {
+  font-size: var(--step-2);
+  letter-spacing: var(--tracking-tight);
+  scroll-margin-top: 6.5rem;
+}
+
+.legal__section > p {
+  margin-top: var(--space-s);
+  color: var(--ink-2);
+  line-height: var(--leading-copy);
+  max-width: var(--measure);
+}
+
+.legal__list {
+  margin-top: var(--space-s);
+  padding-inline-start: 1.15rem;
+  color: var(--ink-2);
+  line-height: var(--leading-copy);
+  max-width: var(--measure);
+  display: grid;
+  gap: var(--space-3xs);
+}
+
+/* Current vs planned — the two states must never read the same. */
+.legal-callout {
+  margin-top: var(--space-s);
+  max-width: var(--measure);
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  border-inline-start: 3px solid var(--line-strong);
+  background: var(--surface);
+}
+
+.legal-callout[data-tone="now"] {
+  border-inline-start-color: var(--accent);
+}
+
+.legal-callout[data-tone="future"] {
+  border-inline-start-color: var(--status);
+}
+
+.legal-callout__title {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.legal-callout__body {
+  margin-top: var(--space-3xs);
+}
+
+.legal-callout__body p {
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+}
+
+/* Manual-completion slot: visible on purpose, so it cannot ship by accident. */
+.legal-pending {
+  display: block;
+  margin-top: var(--space-s);
+  max-width: var(--measure);
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--radius-sm);
+  border: 2px dashed rgb(245 158 11 / 0.6);
+  background: rgb(245 158 11 / 0.08);
+}
+
+.legal-pending__label {
+  display: block;
+  font-size: var(--step--1);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b45309;
+}
+
+.legal-pending__body {
+  display: block;
+  margin-top: var(--space-3xs);
+  color: var(--ink-2);
+  line-height: var(--leading-snug);
+}
+
+.legal-contact {
+  display: grid;
+  gap: var(--space-2xs);
+  margin-top: var(--space-s);
+}
+
+.legal-contact__item {
+  display: grid;
+  gap: 2px;
+}
+
+.legal-contact__label {
+  font-size: var(--step--1);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Detail page: honest availability line when a game has no store link. */
+.entry-body__note {
+  color: var(--ink-2);
+  font-size: var(--step--1);
+  line-height: var(--leading-snug);
+  max-width: var(--measure);
+}
+
+@media (min-width: 60em) {
+  .legal__grid {
+    grid-template-columns: minmax(12rem, 17rem) minmax(0, 1fr);
+    gap: var(--space-2xl);
+  }
+
+  .legal__toc {
+    position: sticky;
+    top: calc(var(--space-l) + 4.5rem);
+  }
+}
+
+@media print {
+  .legal__toc,
+  .site-header,
+  .site-footer {
+    display: none;
+  }
+
+  .legal__section {
+    break-inside: avoid;
+  }
+}

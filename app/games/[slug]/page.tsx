@@ -96,7 +96,17 @@ export default async function GameDetailPage({ params }: PageProps) {
                   ))}
                 </div>
               </div>
-            ) : null}
+            ) : (
+              /* No live storefront yet: say so plainly instead of rendering an
+                 install CTA that would lead nowhere. */
+              <div className="entry-body__block">
+                <h3 className="hero__availability-label">Availability</h3>
+                <p className="entry-body__note">
+                  Coming Soon — not yet published on any store. No download
+                  link exists yet.
+                </p>
+              </div>
+            )}
 
             <div className="entry-body__block">
               <h3 className="hero__availability-label">Details</h3>
