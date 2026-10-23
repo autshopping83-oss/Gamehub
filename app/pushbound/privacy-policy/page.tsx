@@ -1,8 +1,4 @@
-import LegalDoc, {
-  LegalCallout,
-  LegalPending,
-  type LegalSection,
-} from "@/components/legal-doc";
+import LegalDoc, { LegalCallout, type LegalSection } from "@/components/legal-doc";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -372,6 +368,10 @@ const SECTIONS: LegalSection[] = [
         </p>
         <div className="legal-contact">
           <p className="legal-contact__item">
+            <span className="legal-contact__label">Publisher</span>
+            <span>Elias Chanisso — publisher and responsible person for Pushbound</span>
+          </p>
+          <p className="legal-contact__item">
             <span className="legal-contact__label">E-mail</span>
             <a href="mailto:eliaschanisso83@gmail.com">
               eliaschanisso83@gmail.com
@@ -386,11 +386,6 @@ const SECTIONS: LegalSection[] = [
             <span>Pushbound — Android</span>
           </p>
         </div>
-        <LegalPending>
-          Legal entity or trade name of the Pushbound publisher, and any postal
-          address required in your jurisdiction, must be inserted here before
-          this URL is submitted to Google Play Console.
-        </LegalPending>
       </>
     ),
   },

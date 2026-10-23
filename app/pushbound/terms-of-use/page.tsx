@@ -1,8 +1,4 @@
-import LegalDoc, {
-  LegalCallout,
-  LegalPending,
-  type LegalSection,
-} from "@/components/legal-doc";
+import LegalDoc, { LegalCallout, type LegalSection } from "@/components/legal-doc";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -429,6 +425,10 @@ const SECTIONS: LegalSection[] = [
         <p>Questions about these Terms of Use can be sent to:</p>
         <div className="legal-contact">
           <p className="legal-contact__item">
+            <span className="legal-contact__label">Publisher</span>
+            <span>Elias Chanisso — publisher and responsible person for Pushbound</span>
+          </p>
+          <p className="legal-contact__item">
             <span className="legal-contact__label">E-mail</span>
             <a href="mailto:eliaschanisso83@gmail.com">
               eliaschanisso83@gmail.com
@@ -443,12 +443,12 @@ const SECTIONS: LegalSection[] = [
             <span>Pushbound — Android</span>
           </p>
         </div>
-        <LegalPending>
-          Legal entity or trade name of the Pushbound publisher, together with
-          the governing law and jurisdiction that apply to these Terms, must be
-          inserted here before this URL is published or submitted to Google
-          Play Console. Do not publish with this note in place.
-        </LegalPending>
+        <p>
+          <strong>Governing law.</strong> These Terms of Use are governed by
+          the laws of the Republic of Mozambique. This does not limit any
+          mandatory consumer protection that applies to you under the law of
+          the country where you live.
+        </p>
       </>
     ),
   },
