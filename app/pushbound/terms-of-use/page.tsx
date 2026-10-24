@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Pushbound Terms of Use",
   description:
-    "Terms of Use for Pushbound, the free Android Sokoban puzzle game: licence, ownership of the game and its levels, prohibited activities, and what is only planned for the future.",
+    "Terms of Use for Pushbound, the free Android Sokoban puzzle game: licence, ownership of the game and its levels, prohibited activities, optional rewarded advertising through Google AdMob, and what is only planned for the future.",
   path: "/pushbound/terms-of-use",
 });
 
@@ -13,12 +13,15 @@ export const metadata = pageMetadata({
  *
  * Current implementation facts this document relies on:
  *  - free to play, distributed through Google Play (application id com.pushbound.game)
- *  - plays offline; no network use, no accounts, no third-party SDKs
- *  - no advertising in the shipped build; no in-app purchases of any kind
+ *  - optional REWARDED advertising through Google AdMob (unit Pushbound_Rewarded_Hint),
+ *    tied to the hint mechanic; no banner, interstitial, native or app-open unit
+ *  - the game itself opens no network connection; connectivity is used only to
+ *    fetch an advertisement the player explicitly chose to watch
+ *  - no accounts, no in-app purchases of any kind; "Remove Ads" is PLANNED ONLY
  *  - progress stored only on the device (no cloud sync)
- * Future monetisation (optional ads, one-time "Remove Ads") is described only
- * as planned. Legal details that do not exist in the project are marked with
- * <LegalPending> instead of being invented.
+ * Legal details that do not exist in the project are marked with
+ * <LegalPending> instead of being invented. Governing law and publisher are
+ * factual and must not be altered.
  */
 
 const SECTIONS: LegalSection[] = [
@@ -37,8 +40,9 @@ const SECTIONS: LegalSection[] = [
         <p>
           Pushbound is free to download and play, is intended for an
           international audience, and is distributed through Google Play.
-          The current version plays entirely offline and does not require an
-          internet connection.
+          Every part of the game that is not advertising works entirely
+          offline and needs no internet connection. If you choose to watch an
+          optional rewarded advertisement, that request uses your connection.
         </p>
         <p>
           This document is the official Terms of Use for Pushbound and is
@@ -236,20 +240,54 @@ const SECTIONS: LegalSection[] = [
     heading: "Advertising",
     body: (
       <>
-        <LegalCallout tone="now" title="Current version">
+        <LegalCallout tone="now" title="Current version — optional rewarded ads">
           <p>
-            Pushbound contains no advertising today: the shipped application
-            loads no ads and includes no advertising software.
+            Pushbound may display <strong>optional rewarded advertisements</strong>{" "}
+            provided through <strong>Google AdMob</strong>. This is the only
+            advertising format used. There are no banner ads, no interstitial
+            ads, no native ads and no app-open ads.
           </p>
         </LegalCallout>
-        <LegalCallout tone="future" title="Planned, not active">
-          <p>
-            Advertising may be introduced later. If it is, the intention is for
-            it to remain optional or rewarded, and never required in order to
-            play normal gameplay. These Terms will be updated when
-            advertising is actually added.
-          </p>
-        </LegalCallout>
+        <p>
+          Rewarded advertising in Pushbound is connected to the game&apos;s hint
+          mechanic. If you have used the hints available for an attempt, the
+          game may offer you the choice of watching a short advertisement in
+          exchange for one further hint. The offer tells you what you will
+          receive and that an advertisement will be shown, before anything is
+          loaded.
+        </p>
+        <p>
+          Watching is always your decision. You can decline with the
+          &quot;Not now&quot; option at no cost, and you are never required to
+          watch an advertisement in order to play, to start a level or to finish
+          a level. The hint a rewarded advertisement grants is an assist — it
+          does not solve the puzzle for you.
+        </p>
+        <p>
+          An advertisement is never shown on its own initiative: not when the
+          game launches, not while you are moving or pushing a crate, not over
+          the board without warning, not immediately after completing a level,
+          and not after every failed attempt.
+        </p>
+        <p>
+          <strong>
+            We do not guarantee that an advertisement will be available.
+          </strong>{" "}
+          Serving one depends on your network connectivity and on the
+          availability of a third-party advertising service that we do not
+          control. If an advertisement cannot be loaded, or if you do not
+          complete it, no reward is granted — the reward is given only when the
+          advertising service confirms it has been earned. Either way the game
+          continues unchanged, and it remains fully playable without watching a
+          rewarded advertisement.
+        </p>
+        <p>
+          Google AdMob is a third-party service operated by Google, subject to
+          Google&apos;s own terms and policies. Our{" "}
+          <a href="/pushbound/privacy-policy">Privacy Policy</a> explains how it
+          differs from what the game itself stores, and links to Google&apos;s
+          official privacy information.
+        </p>
       </>
     ),
   },
@@ -262,6 +300,8 @@ const SECTIONS: LegalSection[] = [
           <p>
             Pushbound currently has no in-app purchases. Nothing inside the
             game can be bought today, and no payment is processed by the game.
+            Watching a rewarded advertisement costs no money, and there is no
+            way to spend money inside Pushbound.
           </p>
         </LegalCallout>
         <p>
@@ -285,9 +325,9 @@ const SECTIONS: LegalSection[] = [
         </ul>
         <LegalCallout tone="future" title="Not available today">
           <p>
-            None of the above exists in the current game. Treat it as an
-            intention only; it becomes real, and these Terms become accurate
-            about it, when it is actually released.
+            &quot;Remove Ads&quot; does not exist in the current game and cannot
+            be purchased. Treat it as an intention only; it becomes real, and
+            these Terms become accurate about it, when it is actually released.
           </p>
         </LegalCallout>
       </>
@@ -305,8 +345,9 @@ const SECTIONS: LegalSection[] = [
           governed by Google&apos;s terms and policies, not by us.
         </p>
         <p>
-          The current version of the game contains no other third-party
-          service, advertising network, analytics provider or sign-in service.
+          Apart from the Google AdMob advertising service described above, the
+          game contains no other third-party service, analytics provider or
+          sign-in service.
         </p>
         <p>
           Our <a href="/pushbound/privacy-policy">Privacy Policy</a> explains
@@ -322,19 +363,23 @@ const SECTIONS: LegalSection[] = [
       <>
         <p>
           Pushbound is provided as it exists in the version you have installed.
-          The current version works offline: no constant internet connection is
-          required to play, and no connectivity is needed to reach us, because
-          the game does not communicate with a server.
+          The game itself works offline: playing, moving, pushing crates and
+          completing levels need no internet connection, and no connectivity is
+          required to reach us, because the game does not communicate with a
+          server of ours.
+        </p>
+        <p>
+          The one part of the game that does use the network is loading a
+          rewarded advertisement, and only after you have chosen to watch one.
+          Advertising additionally depends on a third-party service we do not
+          control, so its availability is not guaranteed and may vary — but that
+          never affects your ability to play.
         </p>
         <p>
           Content, levels or features may be added, changed or withdrawn. We
           may also modify, suspend or discontinue the game, in whole or in
           part, including ending its availability, without prior notice where
           the law permits it.
-        </p>
-        <p>
-          If a future feature genuinely requires connectivity, it will be
-          described separately at the time it is introduced.
         </p>
       </>
     ),
@@ -459,9 +504,9 @@ export default function PushboundTermsOfUsePage() {
     <LegalDoc
       overline="Pushbound · Legal"
       title="Terms of Use"
-      lede="The rules for using Pushbound: what you may do, what belongs to whom, and what is only planned for later."
-      updated="23 October 2026"
-      dateTime="2026-10-23"
+      lede="The rules for using Pushbound: what you may do, what belongs to whom, how optional rewarded advertising works, and what is only planned for later."
+      updated="24 October 2026"
+      dateTime="2026-10-24"
       backHref="/games/pushbound"
       backLabel="Pushbound"
       sections={SECTIONS}
